@@ -1,0 +1,27 @@
+.newspaper {
+    --nb-pages: 2;
+}
+
+#container {
+    overflow-x: scroll;
+    width: 100%;
+}
+.newspaper {
+    /* Old Chrome, Safari and Opera */
+    -webkit-column-count: var(--nb-pages);
+    -webkit-column-gap: 40px;
+
+    /* Old Firefox */
+    -moz-column-count: var(--nb-pages);
+    -moz-column-gap: 40px;
+
+    /* Standard syntax */
+    column-count: var(--nb-pages);
+    column-gap: 40px;
+    width: 200%; /*calc(var(--nb-pages) * 100%);*/
+}
+
+body {
+    position: relative;
+    height: 100%;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #container {
+            overflow-x: scroll;
+            width: 100%;
+            height: 100%;
+        }
+        .newspaper {
+            /* Old Chrome, Safari and Opera */
+            -webkit-column-count: 3;
+            -webkit-column-gap: 40px;
+
+            /* Old Firefox */
+            -moz-column-count: 3;
+            -moz-column-gap: 40px;
+
+            /* Standard syntax */
+            column-count: 3;
+            column-gap: 40px;
+            width: 300%;
+        }
+
+        body {
+            /*overflow-x: scroll;*/
+            position: relative;
+            height: 100%;
+            //width: 300%;
+        }
+
+        .child {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background-color: #F0F0F0;
+            display: inline-block;
+            margin-right: -4px;
+            border: 1px solid black;
+        }
+
+        .label {
+            width: 200px;
+            height: 200px;
+            border-radius: 25%;
+            background-color: white;
+            margin: 100px auto 0 auto;
+        }
+
+        .label > h1 {
+            font-size: 80px;
+            padding-left: calc(50% - 22px);
+            padding-top: calc(50% - 60px);
+        }
+
+
+        .container {
+            width: 402px;
+            height: 410px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            margin: 10vh auto 0 auto;
+        }
+
+        #snap-scroll-container {
+            -webkit-scroll-snap-type: mandatory;
+            scroll-snap-type: x mandatory;
+            -webkit-scroll-snap-points-x: repeat(100%);
+            scroll-snap-points-x: repeat(100%);
+        }
+
+        #snap-scroll-container > .child {
+            scroll-snap-align: start;
+        }
+    </style>
+</head>
+
+<body onscroll="console.log('BODY scrolling: ' + scrollX)">
+
+<div id="container" onscroll="console.log('CONTAINER scrolling: ' + scrollX)">
+<!--<div id="container">-->
+    <div class="newspaper">
+        <h1>Chapter 1</h1>
+        <p><a href="javascript:console.log('Click !')">Click Me</a>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <h3>This second container shows what basic scroll snapping can do for us.</h3>
+        <div class="container" id="snap-scroll-container">
+            <div class="child">
+                <div class="label"><h1>1</h1></div>
+            </div>
+            <div class="child" style="width: 1000px">
+                <div class="label"><h1>2</h1></div>
+            </div>
+            <div class="child">
+                <div class="label"><h1>3</h1></div>
+            </div>
+            <div class="child">
+                <div class="label"><h1>4</h1></div>
+            </div>
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+            <span id="astuce">_</span>
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+
+</html>

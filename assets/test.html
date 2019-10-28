@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <title>Scroll Snapping Examples</title>
+            <style>
+
+                .child {
+                    width: 400px;
+                    height: 400px;
+                    position: relative;
+                    background-color: #F0F0F0;
+                    display: inline-block;
+                    margin-right: -4px;
+                    border: 1px solid black;
+                }
+
+                .label {
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 25%;
+                    background-color: white;
+                    margin: 100px auto 0 auto;
+                }
+
+                .label > h1 {
+                    font-size: 80px;
+                    padding-left: calc(50% - 22px);
+                    padding-top: calc(50% - 60px);
+                }
+
+
+                .container {
+                    width: 402px;
+                    height: 410px;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                    margin: 10vh auto 0 auto;
+                }
+
+                #snap-scroll-container {
+                    -webkit-scroll-snap-type: mandatory;
+                    scroll-snap-type: x mandatory;
+                    -webkit-scroll-snap-points-x: repeat(100%);
+                    scroll-snap-points-x: repeat(100%);
+                }
+
+                #snap-scroll-container > .child {
+                    scroll-snap-align: start;
+                }
+
+            </style>
+        </head>
+
+<body>
+
+<!-- Simple scroll snapping container (using repeat) -->
+<!--<a name="scroll-snap-1"></a>-->
+<div class="container" id="snap-scroll-container">
+    <div class="child">
+        <div class="label"><h1>1</h1></div>
+    </div>
+    <div class="child">
+        <div class="label"><h1>2</h1></div>
+    </div>
+    <div class="child">
+       <div class="label"><h1>3</h1></div>
+    </div>
+    <div class="child">
+        <div class="label"><h1>4</h1></div>
+    </div>
+</div>
+
+</body>
+</html>
