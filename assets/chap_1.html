@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         #container {
@@ -8,7 +9,7 @@
             width: 100%;
             height: 100%;
         }
-        .newspaper {
+        #newspaper {
             /* Old Chrome, Safari and Opera */
             -webkit-column-count: 3;
             -webkit-column-gap: 40px;
@@ -56,8 +57,8 @@
 
 
         .container {
-            width: 402px;
-            height: 410px;
+            width: 200px;
+            height: 200px;
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
@@ -65,24 +66,26 @@
             margin: 10vh auto 0 auto;
         }
 
-        #snap-scroll-container {
+        #snap-scroll-container, #snap-scroll-container2 {
             -webkit-scroll-snap-type: mandatory;
             scroll-snap-type: x mandatory;
             -webkit-scroll-snap-points-x: repeat(100%);
             scroll-snap-points-x: repeat(100%);
         }
 
-        #snap-scroll-container > .child {
+        #snap-scroll-container > .child, #snap-scroll-container2 > .child {
             scroll-snap-align: start;
         }
     </style>
 </head>
 
-<body onscroll="console.log('BODY scrolling: ' + scrollX)">
+<body>
 
-<div id="container" onscroll="console.log('CONTAINER scrolling: ' + scrollX)">
-<!--<div id="container">-->
-    <div class="newspaper">
+
+<!--<div id="container" onscroll="console.log('CONTAINER scrolling: ' + scrollX)">-->
+    <div id="container">
+    <div id="newspaper">
+        <div id="beginning-marker" style="background-color: red; width: 1px; height: 1px; float: left;"></div>
         <h1>Chapter 1</h1>
         <p><a href="javascript:console.log('Click !')">Click Me</a>
             Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
@@ -93,7 +96,7 @@
             augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
             imperdiet doming id quod mazim placerat facer possim assum.
         </p>
-        <h3>This second container shows what basic scroll snapping can do for us.</h3>
+        <h3>This first container shows what basic scroll snapping can do for us.</h3>
         <div class="container" id="snap-scroll-container">
             <div class="child">
                 <div class="label"><h1>1</h1></div>
@@ -127,27 +130,84 @@
             imperdiet doming id quod mazim placerat facer possim assum.
             <span id="astuce">_</span>
         </p>
-        <p>
-            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-            imperdiet doming id quod mazim placerat facer possim assum.
-        </p>
-        <p>
-            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-            imperdiet doming id quod mazim placerat facer possim assum.
-        </p>
+        <!--        <p>-->
+        <!--            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam-->
+        <!--            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,-->
+        <!--            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem-->
+        <!--            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat-->
+        <!--            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit-->
+        <!--            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil-->
+        <!--            imperdiet doming id quod mazim placerat facer possim assum.-->
+        <!--        </p>-->
+        <!--        <p>-->
+        <!--            Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam-->
+        <!--            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,-->
+        <!--            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem-->
+        <!--            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat-->
+        <!--            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit-->
+        <!--            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil-->
+        <!--            imperdiet doming id quod mazim placerat facer possim assum.-->
+        <!--        </p>-->
+        <h3>This second container shows what basic scroll snapping can do for us.</h3>
+        <div class="container" id="snap-scroll-container2">
+            <div class="child">
+                <div class="label"><h1>1</h1></div>
+            </div>
+            <div class="child" style="width: 1000px">
+                <div class="label"><h1>2</h1></div>
+            </div>
+            <div class="child">
+                <div class="label"><h1>3</h1></div>
+            </div>
+            <div class="child">
+                <div class="label"><h1>4</h1></div>
+            </div>
+        </div>
+        <div id="end-marker" style="background-color: blue; width: 1px; height: 1px; float: right;"></div>
     </div>
 </div>
 </body>
-<script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+    var observerBeginning = new IntersectionObserver(function(entries) {
+        // isIntersecting is true when element and viewport are overlapping
+        // isIntersecting is false when element and viewport don't overlap
+        //console.log('BEGINNING visible: ', entries[0].isIntersecting); // === true
+        setTimeout(console.log.bind(console, '\n%c' + 'BEGINNING visible: ', entries[0].isIntersecting, ''));
+        sendBeginningVisibile.postMessage(entries[0].isIntersecting)
+    }, { threshold: [0] });
+    var observerEnd = new IntersectionObserver(function(entries) {
+        // isIntersecting is true when element and viewport are overlapping
+        // isIntersecting is false when element and viewport don't overlap
+        // console.log('END visible: ', entries[0].isIntersecting); // === true
+        setTimeout(console.log.bind(console, '\n%c' + 'END visible: ', entries[0].isIntersecting, ''));
+        sendEndVisibile.postMessage(entries[0].isIntersecting)
+    }, { threshold: [0] });
+
+    // If any of these "markers" are visible in the viewport, the PageView must handle drags.
+    observerBeginning.observe(document.querySelector("#beginning-marker"));
+    observerEnd.observe(document.querySelector("#end-marker"));
+
+    $( document ).ready(function() {
+
+        console.log( "ready!" );
+        let viewportWidth = $(window).width();
+        //$('#beginning-marker').offset({ top: 0, left: $(window).width()-20 });
+        // $('#end-marker').offset({ top: 0, right: 0 });
+        //$('#end-marker').offset({ top: 0, left: $('#newspaper').width()+100 });
+        // Source: https://stackoverflow.com/questions/6505067/how-to-setup-absolute-position-of-a-div-with-jquery
+        // $('#end-marker').css({
+        //     position: "absolute",
+        //     marginLeft: 0, marginTop: 0,
+        //     top: 100, right: $('#newspaper').width()-200
+        // }).appendTo('body');
+        // $('#lol').css({
+        // position: "absolute",
+//            marginLeft: 0, marginTop: 0,
+//            top: 0, left: 0
+//    }).appendTo('body');
+
+    });
+</script>
 
 </html>

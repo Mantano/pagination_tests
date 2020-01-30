@@ -62,7 +62,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const NB_CHAPTERS = 8;
+  static const NB_CHAPTERS = 6;
   final _webviewKeys =
       List<GlobalKey>.generate(NB_CHAPTERS, (_) => GlobalKey());
   var _controller = [];
@@ -93,46 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-//      body: Center(
-//        // Center is a layout widget. It takes a single child and positions it
-//        // in the middle of the parent.
-//        child: Column(
-//          // Column is also a layout widget. It takes a list of children and
-//          // arranges them vertically. By default, it sizes itself to fit its
-//          // children horizontally, and tries to be as tall as its parent.
-//          //
-//          // Invoke "debug painting" (press "p" in the console, choose the
-//          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-//          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-//          // to see the wireframe for each widget.
-//          //
-//          // Column has various properties to control how it sizes itself and
-//          // how it positions its children. Here we use mainAxisAlignment to
-//          // center the children vertically; the main axis here is the vertical
-//          // axis because Columns are vertical (the cross axis would be
-//          // horizontal).
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'You have pushed the button this many times:',
-//            ),
-//            Text(
-//              '$_counter',
-//              style: Theme.of(context).textTheme.display1,
-//            ),
-//          ],
-//        ),
-//      ),
 
-      // TOD0 JM:
-      //  - Injecter dans les pag sun JS qui signale quand on atteint le limite de scroll à G ou à D,
-      // - Dans le callback Flutter ainsi appelé, positionner un booléen "pageViewMustHandleDrag", et
-      // faire en sorte que le PlatformViewHorizontalGestureRecognizer fasse stopTrackingPointer et se "désactive"
-      // Code JS: Plusieurs solutions sur https://stackoverflow.com/questions/3962558/javascript-detect-scroll-end
-      // Par exemple: if (($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
-      //    //do stuff
-      //}
-      // ALTERNATIVE: placer la webview dans une ListView do
       body: Center(
         child: PreloadPageView.builder(
             preloadPagesCount: 3,
@@ -145,11 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             }),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
@@ -187,21 +143,17 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
       //javascriptChannels: epubCallbacks.channels,
       javascriptChannels: Set.from([
         JavascriptChannel(
-            name: 'PrintScrollPosition',
+            name: 'sendBeginningVisibile',
             onMessageReceived: (JavascriptMessage message) {
-              //This is where you receive message from
-              //javascript code and handle in Flutter/Dart
-              //like here, the message is just being printed
-              //in Run/LogCat window of android studio
-              Fimber.d(">>> FROM JS: ${message.message}");
-              var values = message.message.split("/");
-              platformViewHorizontalGestureRecognizer.webViewScrollX =
-                  double.parse(values[0]);
-              platformViewHorizontalGestureRecognizer.webViewScrollWidth =
-                  double.parse(values[1]);
-              platformViewHorizontalGestureRecognizer.webViewViewportWidth =
-                  double.parse(values[2]);
-            })
+              platformViewHorizontalGestureRecognizer.setBeginningVisible(
+                  message, platformViewHorizontalGestureRecognizer);
+            }),
+        JavascriptChannel(
+            name: 'sendEndVisibile',
+            onMessageReceived: (JavascriptMessage message) {
+              platformViewHorizontalGestureRecognizer.setEndVisible(
+                  message, platformViewHorizontalGestureRecognizer);
+            }),
       ]),
       gestureRecognizers: [
         Factory(() => platformViewHorizontalGestureRecognizer),
@@ -217,6 +169,20 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
         //_changeNbPages(kDefaultNbPages);
       },
     );
+  }
+
+  void setCurrentScrollInfos(
+      JavascriptMessage message,
+      PlatformViewHorizontalGestureRecognizer
+          platformViewHorizontalGestureRecognizer) {
+    Fimber.d(">>> FROM JS: ${message.message}");
+    var values = message.message.split("/");
+    platformViewHorizontalGestureRecognizer.webViewScrollX =
+        double.parse(values[0]);
+    platformViewHorizontalGestureRecognizer.webViewScrollWidth =
+        double.parse(values[1]);
+    platformViewHorizontalGestureRecognizer.webViewViewportWidth =
+        double.parse(values[2]);
   }
 
   _loadHtmlFromAssets() async {
@@ -257,11 +223,8 @@ parent.appendChild(style);
     Fimber.d("loadJS: $jScript");
     _controller.evaluateJavascript("javascript:(function(){$jScript})()");
   }
-}
 
-double _webViewScrollX = 0;
-double _webViewScrollWidth = double.maxFinite;
-double _webViewViewportWidth = double.maxFinite;
+}
 
 /// Inspired by https://stackoverflow.com/questions/57069716/scrolling-priority-when-combining-pageview-with-webview-in-flutter-1-7-8/57150906#57150906
 ///
@@ -270,6 +233,30 @@ class PlatformViewHorizontalGestureRecognizer
   WebViewController controller;
   PaginatingWebView _webView;
 
+  double _webViewScrollX = -double.maxFinite;
+  double _webViewScrollWidth = double.maxFinite;
+  double _webViewViewportWidth = double.maxFinite;
+
+  bool _isBeginningVisible = true;
+  bool _isEndVisible = false;
+
+  int _currentPointer;
+
+
+  bool get isBeginningVisible => _isBeginningVisible;
+
+  bool get isEndVisible => _isEndVisible;
+
+  set isBeginningVisible(bool value) {
+    Fimber.d(">>> SETTING isBeginningVisible to $value");
+    _isBeginningVisible = value;
+  }
+
+  set isEndVisible(bool value) {
+    Fimber.d(">>> SETTING isEndVisible to $value");
+    _isEndVisible = value;
+  }
+
   set webView(PaginatingWebView value) {
     _webView = value;
   }
@@ -277,7 +264,7 @@ class PlatformViewHorizontalGestureRecognizer
   set webViewScrollX(double value) {
     _webViewScrollX = value;
     Fimber.d(
-        ">>> _webViewCanScrollX --> $_webViewScrollX, this: $hashCode, ${_webView.hashCode}");
+        ">>> _webViewCanScrollX --> $value, this: $hashCode, ${_webView.hashCode}");
   }
 
   set webViewScrollWidth(double value) {
@@ -292,6 +279,19 @@ class PlatformViewHorizontalGestureRecognizer
         ">>> webViewViewportWidth --> $_webViewViewportWidth, this: $hashCode, ${_webView.hashCode}");
   }
 
+  void setBeginningVisible(JavascriptMessage message, PlatformViewHorizontalGestureRecognizer platformViewHorizontalGestureRecognizer) {
+    var value = message.message.toLowerCase() == 'true' || message.message.toLowerCase() == '1';
+    Fimber.d(">>> setBeginningVisible, FROM JS: $value (message: ${message.message})");
+    isBeginningVisible = value;
+  }
+
+  void setEndVisible(JavascriptMessage message, PlatformViewHorizontalGestureRecognizer platformViewHorizontalGestureRecognizer) {
+    var value = message.message.toLowerCase() == 'true' || message.message.toLowerCase() == '1';
+    Fimber.d(">>> setEndVisible, FROM JS: $value (message: ${message.message})");
+    isEndVisible = value;
+  }
+
+
   PlatformViewHorizontalGestureRecognizer({PointerDeviceKind kind})
       : super(kind: kind);
 
@@ -299,75 +299,139 @@ class PlatformViewHorizontalGestureRecognizer
 
   @override
   void addPointer(PointerEvent event) {
+    _currentPointer = event.pointer;
     startTrackingPointer(event.pointer);
-    askScrollPosToWebview();
-    Fimber.d(">>> Pointer tracking STARTED");
+    Fimber.d(">>> Pointer tracking STARTED, pointer: ${event.pointer}");
   }
 
   @override
   String get debugDescription => 'horizontal drag (platform view)';
 
   final getScrollPosJSString = """
-PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft + '/' + document.getElementById('container').scrollWidth + '/' +  Math.max(document.documentElement.clientWidth, document.documentElement.clientWidth /*window.innerWidth || 0*/));
+PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft + '/' + document.scrollingElement.scrollWidth + '/' +  Math.max(document.documentElement.clientWidth, document.documentElement.clientWidth /*window.innerWidth || 0*/ ));
 """;
 
   @override
   void didStopTrackingLastPointer(int pointer) {
-    Fimber.d(">>> didStopTrackingLastPointer");
-    askScrollPosToWebview();
+//    Fimber.d(">>> didStopTrackingLastPointer");
   }
 
   bool webviewCanScroll(double dx) {
+    Fimber.d(">>> webviewCanScroll --> " + (_isEndVisible ? "false" : "true"));
+    return !_isEndVisible;
     bool res = false;
-    if (dx == 0 || _webViewScrollWidth == double.maxFinite ||  _webViewViewportWidth == double.maxFinite)
+    double wvScrollX = getNextScrollInfos();
+
+    if (dx == 0 ||
+        _webViewScrollWidth == double.maxFinite ||
+        _webViewViewportWidth == double.maxFinite)
       res = true;
     else if (dx > 0)
-      res = _webViewScrollX > 0;
-//    res = _webViewScrollX - _webViewViewportWidth >= 0;
+      res = wvScrollX > 0;
+//    res = wvScrollX - _webViewViewportWidth >= 0;
 
     else
-      res = _webViewScrollX <= _webViewScrollWidth - _webViewViewportWidth + 2*4;
+      res = wvScrollX <= _webViewScrollWidth - 2 * _webViewViewportWidth;
     Fimber.d(
-        ">>> CAN SCROLL? dx = $dx, scrollX: $_webViewScrollX, scrollWidth: $_webViewScrollWidth, vpwidth: $_webViewViewportWidth --> $res");
+        ">>> CAN SCROLL? dx = $dx, scrollX: $wvScrollX, scrollWidth: $_webViewScrollWidth, vpwidth: $_webViewViewportWidth --> $res");
     return res;
+  }
+
+  double getNextScrollInfos() {
+    double wvScrollX = double.maxFinite;
+    // Horrible active polling, but found no better way for now to get the result from JS
+    wvScrollX = _webViewScrollX;
+//    while (wvScrollX == double.maxFinite) {
+//      wvScrollX = _webViewScrollX;
+//      sleep(const Duration(milliseconds:5));
+//    }
+    //_webViewScrollX = double.maxFinite;
+    return wvScrollX;
   }
 
   @override
   void handleEvent(PointerEvent event) {
     _dragDistance = _dragDistance + event.delta;
-    // askScrollPosToWebview();
-    Fimber.d(
-        ">>> handleEvent, webViewCanScroll: ${webviewCanScroll(event.delta.dx)}, this: $hashCode, ${_webView.hashCode}");
-    if (!webviewCanScroll(event.delta.dx)) {
-      Fimber.d(">>> REJECTING event");
-      resolve(GestureDisposition.rejected);
-      return;
-    }
-    Fimber.d(">>> handleEventnot NOT rejecting");
-
     if (event is PointerMoveEvent) {
       final double dy = _dragDistance.dy.abs();
       final double dx = _dragDistance.dx.abs();
-      Fimber.d(">>> localPosition: ${event.localPosition.dx}");
-      if (!webviewCanScroll(event.delta.dx) || (dy > dx && dy > kTouchSlop)) {
+
+      if (dy > dx && dy > kTouchSlop) {
         // vertical drag - stop tracking
         stopTrackingPointer(event.pointer);
-        Fimber.d(">>> Pointer tracking STOPPED");
-        controller.evaluateJavascript("console.log('STOP')");
         _dragDistance = Offset.zero;
       } else if (dx > kTouchSlop && dx > dy) {
-        // horizontal drag - accept if webview can scroll. Otherwise, the drag
-        // will be handled by the enclosing PageView
-        if (webviewCanScroll(event.delta.dx)) {
+        // horizontal drag
+        if ( (isEndVisible && isDraggingTowardsLeft(event))
+            || (isBeginningVisible && isDraggingTowardsRight(event))) {
+
+        } else {
+          // horizontal drag - accept
           resolve(GestureDisposition.accepted);
-          Fimber.d(">>> DRAG accepted");
           _dragDistance = Offset.zero;
         }
       }
     }
   }
+  //@override
+  void JMhandleEvent(PointerEvent event) {
+    _dragDistance = _dragDistance + event.delta;
+    // var wvCanScroll = webviewCanScroll(event.delta.dx);
+    Fimber.d(
+        ">>> handleEvent, dx: ${event.delta.dx}, isEndVisible: $isEndVisible, this: $hashCode, webview: ${_webView.hashCode}");
+    if (!(event is PointerMoveEvent))
+      return super.handleEvent(event);
+
+//    if (isEndVisible) {
+//      Fimber.d(">>> ============= END IS VISIBLE");
+//      stopTrackingPointer(_currentPointer);
+//      resolve(GestureDisposition.rejected);
+//      super.handleEvent(event);
+//      return;
+//    }
+    // When swiping from right to left dx is < 0 (to move forward in a LTR book)
+    if ( (isDraggingTowardsLeft(event) && isEndVisible)
+        || (isDraggingTowardsRight(event) && isBeginningVisible)) {
+      Fimber.d(">>> REJECTING event");
+      stopTrackingPointer(_currentPointer);
+      //resolve(GestureDisposition.rejected);
+    } else {
+      Fimber.d(">>> ACCEPTING event");
+      resolve(GestureDisposition.accepted);
+    }
+    return super.handleEvent(event);
+
+//    Fimber.d(">>> handleEventnot NOT rejecting");
+//
+//    if (event is PointerMoveEvent) {
+//      final double dy = _dragDistance.dy.abs();
+//      final double dx = _dragDistance.dx.abs();
+//      Fimber.d(">>> localPosition: ${event.localPosition.dx}");
+//      if (!wvCanScroll || (dy > dx && dy > kTouchSlop)) {
+//        // vertical drag - stop tracking
+//        stopTrackingPointer(event.pointer);
+//        Fimber.d(">>> Pointer tracking STOPPED");
+//        controller.evaluateJavascript("console.log('STOP')");
+//        _dragDistance = Offset.zero;
+//      } else if (dx > kTouchSlop && dx > dy) {
+//        // horizontal drag - accept if webview can scroll. Otherwise, the drag
+//        // will be handled by the enclosing PageView
+//        if (wvCanScroll) {
+//          resolve(GestureDisposition.accepted);
+//          Fimber.d(">>> DRAG accepted");
+//          _dragDistance = Offset.zero;
+//        }
+//      }
+//    }
+  }
+
+  bool isDraggingTowardsRight(PointerEvent event) => event.delta.dx > 0;
+
+  bool isDraggingTowardsLeft(PointerEvent event) => (event.delta.dx < 0);
 
   void askScrollPosToWebview() {
+    Fimber.d(">>> askScrollPosToWebview");
     controller.evaluateJavascript(getScrollPosJSString);
   }
+
 }
