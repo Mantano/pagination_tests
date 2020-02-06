@@ -78,7 +78,6 @@ flutter:
     - assets/js/jquery-3.4.1.min.js
     - assets/css/pagination.css
     - assets/chap_1.html
-    - assets/chap_1.html
     - assets/chap_2.html
     - assets/chap_3.html
     - assets/chap_4.html
