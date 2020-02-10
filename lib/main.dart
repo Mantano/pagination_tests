@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:pagination_tests/src/epub/js/xpub_js_api.dart';
-import 'package:preload_page_view/preload_page_view.dart';
+import 'package:preload_page_view/preload_page_view.dart' as preload_pageview;
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'src/widgets/snapping_listview.dart';
+import 'src/widgets/fling_page_scroll_physics.dart';
+//import 'src/widgets/snapping_listview.dart';
 
 void main() {
   if (kReleaseMode) {
@@ -112,11 +113,18 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  bool flingMode = false;
+
   Widget _myListView(BuildContext context) {
-    return SnappingListView(
+    // return SnappingListView(
+    // Nous pourrions utiliser soit la PageScroll en mode lecture, soit la FlingPageScroll dans un mode "overview" comme Google Play
+    final scrollPhysics = flingMode ? FlingPageScrollPhysics(PageController()) : preload_pageview.PageScrollPhysics();
+
+    return ListView(
       // itemExtent: MediaQuery.of(context).size.width,
-       itemExtent: MediaQuery.of(context).size.width * 4,
+      //itemExtent: MediaQuery.of(context).size.width * 3,
       scrollDirection: Axis.horizontal,
+      physics: scrollPhysics,
       padding: EdgeInsets.all(0.0),
       children: <Widget>[
         PaginatingWebView(
@@ -218,7 +226,8 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
     var webViewHorizontalGestureRecognizer =
     HorizontalDragGestureRecognizer();
         // WebViewHorizontalGestureRecognizer();
-
+    contentWidth = MediaQuery.of(context).size.width * 3;
+    Fimber.d("============= Device screen width: ${MediaQuery.of(context).size.width}");
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: contentWidth, maxHeight: 800.0),
       child: WebView(
