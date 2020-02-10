@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="ean" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:creator>Michelin</dc:creator>
+    <dc:title>New York City Restaurants 2012</dc:title>
+    <dc:identifier id="ean">9782067179639</dc:identifier>
+    <dc:language>en</dc:language>
+    <dc:publisher>Michelin</dc:publisher>
+    <dc:rights>Michelin</dc:rights>
+	<meta name="cover" content="IMGLG7"/>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    <item id="style.css" href="css/style.css" media-type="text/css" />
+    <item id="templateIndex.css" href="css/templateIndex.css" media-type="text/css" />
+	<item id="cover.html" href="cover.html" media-type="application/xhtml+xml" />
+    <item id="file_0.html" href="file_0.html" media-type="application/xhtml+xml" />
+    <item id="file_1.html" href="file_1.html" media-type="application/xhtml+xml" />
+    <item id="file_2.html" href="file_2.html" media-type="application/xhtml+xml" />
+    <item id="file_3.html" href="file_3.html" media-type="application/xhtml+xml" />
+    <item id="file_4.html" href="file_4.html" media-type="application/xhtml+xml" />
+    <item id="file_5.html" href="file_5.html" media-type="application/xhtml+xml" />
+    <item id="file_6.html" href="file_6.html" media-type="application/xhtml+xml" />
+    <item id="file_7.html" href="file_7.html" media-type="application/xhtml+xml" />
+    <item id="file_8.html" href="file_8.html" media-type="application/xhtml+xml" />
+    <item id="file_9.html" href="file_9.html" media-type="application/xhtml+xml" />
+    <item id="file_10.html" href="file_10.html" media-type="application/xhtml+xml" />
+    <item id="file_11.html" href="file_11.html" media-type="application/xhtml+xml" />
+    <item id="file_12.html" href="file_12.html" media-type="application/xhtml+xml" />
+    <item id="file_13.html" href="file_13.html" media-type="application/xhtml+xml" />
+    <item id="file_14.html" href="file_14.html" media-type="application/xhtml+xml" />
+    <item id="file_15.html" href="file_15.html" media-type="application/xhtml+xml" />
+    <item id="file_16.html" href="file_16.html" media-type="application/xhtml+xml" />
+    <item id="file_17.html" href="file_17.html" media-type="application/xhtml+xml" />
+    <item id="file_18.html" href="file_18.html" media-type="application/xhtml+xml" />
+    <item id="file_19.html" href="file_19.html" media-type="application/xhtml+xml" />
+    <item id="file_20.html" href="file_20.html" media-type="application/xhtml+xml" />
+    <item id="file_21.html" href="file_21.html" media-type="application/xhtml+xml" />
+    <item id="file_22.html" href="file_22.html" media-type="application/xhtml+xml" />
+    <item id="file_23.html" href="file_23.html" media-type="application/xhtml+xml" />
+    <item id="file_24.html" href="file_24.html" media-type="application/xhtml+xml" />
+    <item id="Annuels.otf" href="fonts/Annuels.otf" media-type="application/font-tdpfr" />
+    <item id="MathematicalPiLTStd.otf" href="fonts/MathematicalPiLTStd.otf" media-type="application/font-tdpfr" />
+    <item id="Michelin.otf" href="fonts/Michelin.otf" media-type="application/font-tdpfr" />
+    <item id="MyriadPro-Black.otf" href="fonts/MyriadPro-Black.otf" media-type="application/font-tdpfr" />
+    <item id="MyriadPro-Bold.otf" href="fonts/MyriadPro-Bold.otf" media-type="application/font-tdpfr" />
+    <item id="MyriadPro-It.otf" href="fonts/MyriadPro-It.otf" media-type="application/font-tdpfr" />
+    <item id="MyriadPro-Regular.otf" href="fonts/MyriadPro-Regular.otf" media-type="application/font-tdpfr" />
+    <item id="MyriadPro-Semibold.otf" href="fonts/MyriadPro-Semibold.otf" media-type="application/font-tdpfr" />
+    <item id="MyriadPro-SemiCn.otf" href="fonts/MyriadPro-SemiCn.otf" media-type="application/font-tdpfr" />
+    <item id="Optima.ttc" href="fonts/Optima.ttc" media-type="application/font-tdpfr" />
+    <item id="OptimaLTStd-Bold.otf" href="fonts/OptimaLTStd-Bold.otf" media-type="application/font-tdpfr" />
+    <item id="OptimaLTStd-Italic.otf" href="fonts/OptimaLTStd-Italic.otf" media-type="application/font-tdpfr" />
+    <item id="OptimaLTStd-Medium.otf" href="fonts/OptimaLTStd-Medium.otf" media-type="application/font-tdpfr" />
+    <item id="OptimaLTStd.otf" href="fonts/OptimaLTStd.otf" media-type="application/font-tdpfr" />
+    <item id="PicEpubMic-Regular.otf" href="fonts/PicEpubMic-Regular.otf" media-type="application/font-tdpfr" />
+    <item id="Wingdings3.ttf" href="fonts/Wingdings3.ttf" media-type="application/font-tdpfr" />
+    <item id="IMGLG0" href="img/67883.jpg" media-type="image/jpeg" />
+    <item id="IMGLG1" href="img/BestWesternSeaportNYC09-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG2" href="img/Bronx_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG3" href="img/Brooklyn_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG4" href="img/Chelsea_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG5" href="img/Chinatown-Little_Italy_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG6" href="img/couverts.jpg" media-type="image/jpeg" />
+    <item id="IMGLG7" href="img/Couverture_NY.jpg" media-type="image/jpeg" />
+    <item id="IMGLG8" href="img/cuisine_neighborhood.jpg" media-type="image/jpeg" />
+    <item id="IMGLG9" href="img/NY_Bronx_HistoricalHomes_PB-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG10" href="img/DP_BrooklynNYC09-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG11" href="img/DP_ManhattanNYC09-1_(RS2010).jpg" media-type="image/jpeg" />
+    <item id="IMGLG13" href="img/East_Village_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG14" href="img/Financial_Dist.RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG15" href="img/Gramercy_Flatiron_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG16" href="img/Greenwich_W_Vill_Meat_RG5-Gauch.jpg" media-type="image/jpeg" />
+    <item id="IMGLG17" href="img/Harlem_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG18" href="img/Hotel_jaune.jpg" media-type="image/jpeg" />
+    <item id="IMGLG19" href="img/Hotel_vert.jpg" media-type="image/jpeg" />
+    <item id="IMGLG20" href="img/logo_fmt.jpg" media-type="image/jpeg" />
+    <item id="IMGLG21" href="img/Lower_East_Side_MAP09.jpg" media-type="image/jpeg" />
+    <item id="IMGLG22" href="img/maison_blanc.jpg" media-type="image/jpeg" />
+    <item id="IMGLG23" href="img/maison_gris.jpg" media-type="image/jpeg" />
+    <item id="IMGLG24" href="img/Midtown_East_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG25" href="img/Midtown_West_Main_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG26" href="img/Murray_Hill_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG27" href="img/NY_Neighborhoods_No_Pages_RG7.jpg" media-type="image/jpeg" />
+    <item id="IMGLG28" href="img/NYC_2010_H_The_Ritz-Carlton_Battery_Park-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG29" href="img/NYC2011_H_60Thompson-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG30" href="img/NYC2011_H_6_Columbus-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG31" href="img/NYC2011_H_70Park-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG32" href="img/NYC2011_H_Andaz-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG33" href="img/NYC2011_H_Bentley-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG34" href="img/NYC2011_H_Blakely-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG35" href="img/NYC2011_H_Bowery-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG36" href="img/NYC2011_H_Carlyle-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG37" href="img/NYC2011_H_Casablanca-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG38" href="img/NYC2011_H_Chambers-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG39" href="img/NYC2011_H_CityClub-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG40" href="img/NYC2011_H_Cooper-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG42" href="img/NYC2011_H_CrosbyStreet-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG43" href="img/NYC2011_H_FourSeasons-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG44" href="img/NYC2011_H_Gansevoort-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG45" href="img/NYC2011_H_GildHall-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG46" href="img/NYC2011_H_GramercyPark-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG47" href="img/NYC2011_H_GreenwichHotel-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG48" href="img/NYC2011_H_Hotel_57Lobby-1.jpg" media-type="image/jpeg" />
+	<item id="IMGLG194" href="img/NYC2011_H_InnatIrvingPlace-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG49" href="img/NYC2011_H_Jumierah-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG50" href="img/NYC2011_H_LeParkerMeridian-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG51" href="img/NYC2011_H_Library-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG52" href="img/NYC2011_H_Lowell-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG53" href="img/NYC2011_H_Mandarin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG54" href="img/NYC2011_H_Mark-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG55" href="img/NYC2011_H_Mercer-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG56" href="img/NYC2011_H_MichaelAngelo-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG57" href="img/NYC2011_H_Nu-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG58" href="img/NYC2011_H_NYPalace.jpg" media-type="image/jpeg" />
+    <item id="IMGLG59" href="img/NYC2011_H_Regency-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG60" href="img/NYC2011_H_RitzCentralPark-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG61" href="img/NYC2011_H_Rivington-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG62" href="img/NYC2011_H_Smyth-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG63" href="img/NYC2011_H_Sofitel-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG65" href="img/NYC2011_H_StRegis-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG66" href="img/NYC2011_H_ThePlaza-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG67" href="img/NYC2011_H_TrumpSoho-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG68" href="img/NYC2011_H_VincciAvalon-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG69" href="img/NYC2011_H_W-UnionSquare-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG70" href="img/NYC2011_H_WaldorfAstoria-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG71" href="img/NYC2011_H_WallStreetInn-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG72" href="img/NYC2011_H_WashingtonJefferson-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG73" href="img/NYC2011_R_Adour-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG74" href="img/NYC2011_R_Aldea-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG75" href="img/NYC2011_R_Alto-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG76" href="img/NYC2011_R_Annisa-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG77" href="img/NYC2011_R_Anthos-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG78" href="img/NYC2011_R_Aureole-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG79" href="img/NYC2011_R_AvoceColumbus-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG80" href="img/NYC2011_R_AvoceMadison-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG81" href="img/NYC2011_R_BlueHill-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG82" href="img/NYC2011_R_Bouley-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG83" href="img/NYC2011_R_Breslin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG84" href="img/NYC2011_R_BrooklynKitchen-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG85" href="img/NYC2011_R_CafeBoulud-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG86" href="img/NYC2011_R_CasaMono-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG87" href="img/NYC2011_R_Convivio-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG88" href="img/NYC2011_R_Corton-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG89" href="img/NYC2011_R_Daniel-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG90" href="img/NYC2011_R_DannyBrown-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG91" href="img/NYC2011_R_DelPosto-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG92" href="img/NYC2011_R_Dovetail-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG93" href="img/NYC2011_R_Dressler-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG94" href="img/NYC2011_R_GordonRamsay-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG95" href="img/NYC2011_R_GothamBar&amp;Grill-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG96" href="img/NYC2011_R_Gramercy-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG97" href="img/NYC2011_R_JeanGeorges-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG98" href="img/NYC2011_R_JewelBako-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG99" href="img/NYC2011_R_Kajitsu-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG100" href="img/NYC2011_R_KyoYa-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG101" href="img/NYC2011_R_Laut-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG102" href="img/NYC2011_R_LeBernardin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG103" href="img/NYC2011_R_L_Atelier-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG104" href="img/NYC2011_R_MarcForgione-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG105" href="img/NYC2011_R_Marea-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG106" href="img/NYC2011_R_Masa-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG107" href="img/NYC2011_R_Modern-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG108" href="img/NYC2011_R_MomofukuKo-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG109" href="img/NYC2011_R_Oceana-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG110" href="img/NYC2011_R_PerSe-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG111" href="img/NYC2011_R_PeterLuger-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG112" href="img/NYC2011_R_Picholine-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG113" href="img/NYC2011_R_Public-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG114" href="img/NYC2011_R_RiverCafe-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG115" href="img/NYC2011_R_RougeTomate-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG116" href="img/NYC2011_R_Saul-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG117" href="img/NYC2011_R_Seasonal-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG118" href="img/NYC2011_R_Shalezeh-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG119" href="img/NYC2011_R_SHOShaun-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG120" href="img/NYC2011_R_Soto-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG121" href="img/NYC2011_R_SpottedPig-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG122" href="img/NYC2011_R_SushiAbazu-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG123" href="img/NYC2011_R_SushiofGari-1r.jpg" media-type="image/jpeg" />
+    <item id="IMGLG124" href="img/NYC2011_R_Torrisi-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG125" href="img/NYC2011_R_Veritas-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG126" href="img/NYC2011_R_Wallse-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG127" href="img/NYC2011_R_WD-50-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG128" href="img/NYC2012_H_Ace-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG129" href="img/NYC2012_H_Algonquin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG130" href="img/NYC2012_H_Aloft-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG131" href="img/NYC2012_H_Carlton-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG132" href="img/NYC2012_H_Chatwal-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG133" href="img/NYC2012_H_Eventi-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG134" href="img/NYC2012_H_InterContinental-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG135" href="img/NYC2012_H_James-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG136" href="img/NYC2012_H_Maritime-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG137" href="img/NYC2012_H_Metro-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG138" href="img/NYC2012_H_Mondrian-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG139" href="img/NYC2012_H_OnTheAve-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG140" href="img/NYC2012_H_Peninsula-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG141" href="img/NYC2012_H_RogerWilliams-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG142" href="img/NYC2012_H_SetaiFifth-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG143" href="img/NYC2012_H_SohoGrand-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG144" href="img/NYC2012_H_Surrey-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG145" href="img/NYC2012_H_TheLondonNYC-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG146" href="img/NYC2012_H_TribecaGrand-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG147" href="img/NYC2012_H_TrumpInternational-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG148" href="img/NYC2012_R_AiFiori-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG149" href="img/NYC2012_R_Aureole-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG150" href="img/NYC2012_R_Breslin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG151" href="img/NYC2012_R_Brushstroke-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG152" href="img/NYC2012_R_Chef_sTableBrooklyn-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG153" href="img/NYC2012_R_Danji-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG154" href="img/NYC2012_R_ElevenMadisonPark-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG155" href="img/NYC2012_R_GothamBar&amp;Grill-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG157" href="img/NYC2012_R_Junoon-2.jpg" media-type="image/jpeg" />
+    <item id="IMGLG158" href="img/NYC2012_R_L_AtelierdeJoelRobuchon-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG159" href="img/NYC2012_R_M.Wells-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG160" href="img/NYC2012_R_Rosanjin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG161" href="img/NYC2012_R_Soto-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG162" href="img/NYC2012_R_SpottedPig-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG163" href="img/NYC2012_R_TamarindTribeca-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG164" href="img/NYC2012_R_ToriShin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG165" href="img/NYC2012_R_Tulsi-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG166" href="img/NYC4D5~1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG168" href="img/NYC_2010_H_Elysee-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG169" href="img/NYC_2010_H_The_Benjamin-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG170" href="img/NYC_2010_IN_Queens-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG171" href="img/NYC_2010_IN_Staten_Island-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG172" href="img/NYC_2010_R_Gilt-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG173" href="img/NYC_2010_R_Minetta_Tavern-1.jpg" media-type="image/jpeg" />
+    <item id="IMGLG174" href="img/ouverture_Eat2_opt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG175" href="img/ouverture_Eat_opt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG176" href="img/ouverture_Index_fmt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG177" href="img/ouverture_Where2_fmt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG178" href="img/ouverture_Where_fmt.jpg" media-type="image/jpeg" />
+    <item id="IMGLG179" href="img/Picto_P1_opt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG181" href="img/Picto_P4_opt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG182" href="img/Picto_P5_opt.jpeg" media-type="image/jpeg" />
+    <item id="IMGLG183" href="img/Queens_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG184" href="img/retourSommaire.jpg" media-type="image/jpeg" />
+    <item id="IMGLG185" href="img/rond_blanc.jpg" media-type="image/jpeg" />
+    <item id="IMGLG186" href="img/rond_jaune.jpg" media-type="image/jpeg" />
+    <item id="IMGLG187" href="img/rond_vert.jpg" media-type="image/jpeg" />
+    <item id="IMGLG188" href="img/SoHo-Nolita_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG189" href="img/Staten_Island_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG190" href="img/Tribeca_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG191" href="img/Upper_East_Side_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG192" href="img/Upper_West_Side_RG5.jpg" media-type="image/jpeg" />
+    <item id="IMGLG193" href="img/Washington_Heights_RG5.jpg" media-type="image/jpeg" />
+	 <item id="IMGLG195" href="img/Ebook-GMUSA-How_to_navigate2.jpg" media-type="image/jpeg" />
+	  <item id="IMGLG196" href="img/Ebook-GMUSA-How_to_navigate.jpg" media-type="image/jpeg" />
+	   <item id="IMGLG200" href="img/retourSommaire_fond_rouge.jpg" media-type="image/jpeg" />
+	    <item id="IMGLG201" href="img/retourSommaire_fond_vert.jpg" media-type="image/jpeg" />
+		<item id="IMGLG202" href="img/RABATS_2010 NY_1.jpg" media-type="image/jpeg" />
+		<item id="IMGLG203" href="img/picto_plan.jpg" media-type="image/jpeg" />
+  </manifest>
+  <spine toc="ncx">
+  <itemref idref="cover.html" />
+    <itemref idref="file_0.html" />
+    <itemref idref="file_1.html" />
+    <itemref idref="file_2.html" />
+    <itemref idref="file_3.html" />
+    <itemref idref="file_4.html" />
+    <itemref idref="file_5.html" />
+    <itemref idref="file_6.html" />
+    <itemref idref="file_7.html" />
+    <itemref idref="file_8.html" />
+    <itemref idref="file_9.html" />
+    <itemref idref="file_10.html" />
+    <itemref idref="file_11.html" />
+    <itemref idref="file_12.html" />
+    <itemref idref="file_13.html" />
+    <itemref idref="file_14.html" />
+    <itemref idref="file_15.html" />
+    <itemref idref="file_16.html" />
+    <itemref idref="file_17.html" />
+    <itemref idref="file_18.html" />
+    <itemref idref="file_19.html" />
+    <itemref idref="file_20.html" />
+    <itemref idref="file_21.html" />
+    <itemref idref="file_22.html" />
+    <itemref idref="file_23.html" />
+    <itemref idref="file_24.html" />
+  </spine>
+  <guide><reference type="title-page" title="Cover " href="cover.html"/></guide>
+</package>
