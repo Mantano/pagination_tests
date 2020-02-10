@@ -114,45 +114,57 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool flingMode = false;
+  Offset _offset = Offset(0.4, 0.7);
 
   Widget _myListView(BuildContext context) {
     // return SnappingListView(
     // Nous pourrions utiliser soit la PageScroll en mode lecture, soit la FlingPageScroll dans un mode "overview" comme Google Play
     final scrollPhysics = flingMode ? FlingPageScrollPhysics(PageController()) : preload_pageview.PageScrollPhysics();
 
+    return Transform(  // Transform widget
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, 0.001) // perspective
+        ..rotateX(_offset.dy)
+        ..rotateY(_offset.dx),
+      alignment: FractionalOffset.center,
+      child: createListview(scrollPhysics),
+    );
+  }
+
+  ListView createListview(ScrollPhysics scrollPhysics) {
     return ListView(
-      // itemExtent: MediaQuery.of(context).size.width,
-      //itemExtent: MediaQuery.of(context).size.width * 3,
-      scrollDirection: Axis.horizontal,
-      physics: scrollPhysics,
-      padding: EdgeInsets.all(0.0),
-      children: <Widget>[
-        PaginatingWebView(
-          1,
-          key: _webviewKeys[1],
-        ),
+    // itemExtent: MediaQuery.of(context).size.width,
+    //itemExtent: MediaQuery.of(context).size.width * 3,
+    scrollDirection: Axis.horizontal,
+    physics: scrollPhysics,
+    padding: EdgeInsets.all(0.0),
+    children: <Widget>[
+      PaginatingWebView(
+        1,
+        key: _webviewKeys[1],
+      ),
 //        PaginatingWebView(
 //          2,
 //          key: _webviewKeys[2],
 //        ),
-        PaginatingWebView(
-          3,
-          key: _webviewKeys[3],
-        ),
-        PaginatingWebView(
-          4,
-          key: _webviewKeys[4],
-        ),
-        PaginatingWebView(
-          5,
-          key: _webviewKeys[5],
-        ),
-        PaginatingWebView(
-          6,
-          key: _webviewKeys[6],
-        ),
-      ],
-    );
+      PaginatingWebView(
+        3,
+        key: _webviewKeys[3],
+      ),
+      PaginatingWebView(
+        4,
+        key: _webviewKeys[4],
+      ),
+      PaginatingWebView(
+        5,
+        key: _webviewKeys[5],
+      ),
+      PaginatingWebView(
+        6,
+        key: _webviewKeys[6],
+      ),
+    ],
+  );
   }
 
   ConstrainedBox createWebview(String initialUrl) {
