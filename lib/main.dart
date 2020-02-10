@@ -10,6 +10,8 @@ import 'package:pagination_tests/src/epub/js/xpub_js_api.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'src/widgets/snapping_listview.dart';
+
 void main() {
   if (kReleaseMode) {
     Fimber.plantTree(FimberTree());
@@ -88,26 +90,78 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+//      appBar: AppBar(
+//        // Here we take the value from the MyHomePage object that was created by
+//        // the App.build method, and use it to set our appbar title.
+//        title: Text(widget.title),
+//      ),
 
       body: Center(
-        child: PreloadPageView.builder(
-            preloadPagesCount: 3,
-            controller: PreloadPageController(),
-            itemCount: NB_CHAPTERS,
-            itemBuilder: (ctx, i) {
-              return PaginatingWebView(
-                i + 1,
-                key: _webviewKeys[i],
-              );
-            }),
+        child: _myListView(context),
+//        child: PreloadPageView.builder(
+//            preloadPagesCount: 3,
+//            controller: PreloadPageController(),
+//            itemCount: NB_CHAPTERS,
+//            itemBuilder: (ctx, i) {
+//              return PaginatingWebView(
+//                i + 1,
+//                key: _webviewKeys[i],
+//              );
+//            }),
       ),
     );
   }
+
+  Widget _myListView(BuildContext context) {
+    return SnappingListView(
+      // itemExtent: MediaQuery.of(context).size.width,
+       itemExtent: MediaQuery.of(context).size.width * 3,
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.all(0.0),
+      children: <Widget>[
+        PaginatingWebView(
+          1,
+          key: _webviewKeys[1],
+        ),
+//        PaginatingWebView(
+//          2,
+//          key: _webviewKeys[2],
+//        ),
+        PaginatingWebView(
+          3,
+          key: _webviewKeys[3],
+        ),
+        PaginatingWebView(
+          4,
+          key: _webviewKeys[4],
+        ),
+        PaginatingWebView(
+          5,
+          key: _webviewKeys[5],
+        ),
+        PaginatingWebView(
+          6,
+          key: _webviewKeys[6],
+        ),
+      ],
+    );
+  }
+
+  ConstrainedBox createWebview(String initialUrl) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 920.0, maxHeight: 400.0),
+      child: WebView(
+        debuggingEnabled: true,
+        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+          Factory<VerticalDragGestureRecognizer>(
+                () => VerticalDragGestureRecognizer(),
+          ),
+        },
+        initialUrl: initialUrl,
+      ),
+    );
+  }
+
 }
 /*
 GestureDetector(
@@ -161,40 +215,46 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
   @override
   Widget build(BuildContext context) {
     var webViewHorizontalGestureRecognizer =
-        WebViewHorizontalGestureRecognizer();
-    return WebView(
-      initialUrl: "https://www.google.com",
-      debuggingEnabled: true,
-      javascriptMode: JavascriptMode.unrestricted,
-      //javascriptChannels: epubCallbacks.channels,
-      javascriptChannels: Set.from([
-        JavascriptChannel(
-            name: 'sendBeginningVisibile',
-            onMessageReceived: (JavascriptMessage message) {
-              webViewHorizontalGestureRecognizer.setBeginningVisible(
-                  message, webViewHorizontalGestureRecognizer);
-            }),
-        JavascriptChannel(
-            name: 'sendEndVisibile',
-            onMessageReceived: (JavascriptMessage message) {
-              webViewHorizontalGestureRecognizer.setEndVisible(
-                  message, webViewHorizontalGestureRecognizer);
-            }),
-      ]),
-      gestureRecognizers: [
-        Factory(() => webViewHorizontalGestureRecognizer),
-      ].toSet(),
-      onWebViewCreated: (WebViewController webViewController) {
-        Fimber.d(">>> Webview CREATED");
-        _controller = webViewController;
-        webViewHorizontalGestureRecognizer.controller = webViewController;
-        jsApi = JsApi((js) => _controller.evaluateJavascript(js));
+    HorizontalDragGestureRecognizer();
+        // WebViewHorizontalGestureRecognizer();
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 920.0, maxHeight: 800.0),
+      child: WebView(
+        initialUrl: "https://www.google.com",
+        debuggingEnabled: true,
+        javascriptMode: JavascriptMode.unrestricted,
+        //javascriptChannels: epubCallbacks.channels,
+        javascriptChannels: Set.from([
+          JavascriptChannel(
+              name: 'sendBeginningVisibile',
+              onMessageReceived: (JavascriptMessage message) {
+//                webViewHorizontalGestureRecognizer.setBeginningVisible(
+//                    message, webViewHorizontalGestureRecognizer);
+              }),
+          JavascriptChannel(
+              name: 'sendEndVisibile',
+              onMessageReceived: (JavascriptMessage message) {
+//                webViewHorizontalGestureRecognizer.setEndVisible(
+//                    message, webViewHorizontalGestureRecognizer);
+              }),
+        ]),
+        gestureRecognizers: [
+          Factory(() => webViewHorizontalGestureRecognizer),
+        ].toSet(),
+        onWebViewCreated: (WebViewController webViewController) {
+          Fimber.d(">>> Webview CREATED");
+          _controller = webViewController;
+          //webViewHorizontalGestureRecognizer.controller = webViewController;
+          jsApi = JsApi((js) => _controller.evaluateJavascript(js));
 //                  epubCallbacks.jsApi = _jsApi;
-        _loadHtmlFromAssets();
-        //_injectCss();
-        //_changeNbPages(kDefaultNbPages);
-      },
+          _loadHtmlFromAssets();
+          //_injectCss();
+          //_changeNbPages(kDefaultNbPages);
+        },
+      ),
     );
+
   }
 
   _loadHtmlFromAssets() async {
