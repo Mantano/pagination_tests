@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _myListView(BuildContext context) {
     return SnappingListView(
       // itemExtent: MediaQuery.of(context).size.width,
-       itemExtent: MediaQuery.of(context).size.width * 3,
+       itemExtent: MediaQuery.of(context).size.width * 4,
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.all(0.0),
       children: <Widget>[
@@ -208,6 +208,7 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
   bool get wantKeepAlive => true;
 
   final kDefaultNbPages = 3;
+  double contentWidth = 920.0;
 
   WebViewController _controller;
   JsApi jsApi;
@@ -219,13 +220,21 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
         // WebViewHorizontalGestureRecognizer();
 
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 920.0, maxHeight: 800.0),
+      constraints: BoxConstraints(maxWidth: contentWidth, maxHeight: 800.0),
       child: WebView(
         initialUrl: "https://www.google.com",
         debuggingEnabled: true,
         javascriptMode: JavascriptMode.unrestricted,
         //javascriptChannels: epubCallbacks.channels,
         javascriptChannels: Set.from([
+          JavascriptChannel(
+              name: 'setWebviewWidth',
+              onMessageReceived: (JavascriptMessage message) {
+                Fimber.d("================ setWebviewWidth: ${message.message}");
+                setState(() {
+                  contentWidth = double.parse(message.message);
+                });
+              }),
           JavascriptChannel(
               name: 'sendBeginningVisibile',
               onMessageReceived: (JavascriptMessage message) {

@@ -56,8 +56,8 @@ class _SnappingListViewState extends State<SnappingListView> {
 //    final scrollPhysics = SnappingListScrollPhysics(
 //        mainAxisStartPadding: startPadding, itemExtent: widget.itemExtent);
     // Nous pourrions utiliser soit la PageScroll en mode lecture, soit la FlingPageScroll dans un mode "overview" comme Google Play
-    //final scrollPhysics = PageScrollPhysics();
-    final scrollPhysics = FlingPageScrollPhysics(PageController());
+    final scrollPhysics = PageScrollPhysics();
+    // final scrollPhysics = FlingPageScrollPhysics(PageController());
     final listView = widget.children != null
         ? ListView(
         scrollDirection: widget.scrollDirection,
