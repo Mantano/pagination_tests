@@ -71,17 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var _controller = [];
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -98,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //      ),
 
       body: Center(
-        child: _myListView(context),
+        child: _chaptersListView(context),
 //        child: PreloadPageView.builder(
 //            preloadPagesCount: 3,
 //            controller: PreloadPageController(),
@@ -116,19 +105,19 @@ class _MyHomePageState extends State<MyHomePage> {
   bool flingMode = false;
   Offset _offset = Offset(0.4, 0.7);
 
-  Widget _myListView(BuildContext context) {
+  Widget _chaptersListView(BuildContext context) {
     // return SnappingListView(
     // Nous pourrions utiliser soit la PageScroll en mode lecture, soit la FlingPageScroll dans un mode "overview" comme Google Play
     final scrollPhysics = flingMode ? FlingPageScrollPhysics(PageController()) : preload_pageview.PageScrollPhysics();
-
-    return Transform(  // Transform widget
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.001) // perspective
-        ..rotateX(_offset.dy)
-        ..rotateY(_offset.dx),
-      alignment: FractionalOffset.center,
-      child: createListview(scrollPhysics),
-    );
+    return createListview(scrollPhysics);
+//    return Transform(  // Transform widget
+//      transform: Matrix4.identity()
+//        ..setEntry(3, 2, 0.001) // perspective
+//        ..rotateX(_offset.dy)
+//        ..rotateY(_offset.dx),
+//      alignment: FractionalOffset.center,
+//      child: createListview(scrollPhysics),
+//    );
   }
 
   ListView createListview(ScrollPhysics scrollPhysics) {
