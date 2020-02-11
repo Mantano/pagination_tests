@@ -110,14 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // Nous pourrions utiliser soit la PageScroll en mode lecture, soit la FlingPageScroll dans un mode "overview" comme Google Play
     final scrollPhysics = flingMode ? FlingPageScrollPhysics(PageController()) : preload_pageview.PageScrollPhysics();
     return createListview(scrollPhysics);
-//    return Transform(  // Transform widget
-//      transform: Matrix4.identity()
-//        ..setEntry(3, 2, 0.001) // perspective
-//        ..rotateX(_offset.dy)
-//        ..rotateY(_offset.dx),
-//      alignment: FractionalOffset.center,
-//      child: createListview(scrollPhysics),
-//    );
   }
 
   ListView createListview(ScrollPhysics scrollPhysics) {
@@ -230,7 +222,7 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
     contentWidth = MediaQuery.of(context).size.width * 3;
     Fimber.d("============= Device screen width: ${MediaQuery.of(context).size.width}");
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: contentWidth, maxHeight: 800.0),
+      constraints: BoxConstraints(minWidth: contentWidth, maxWidth: contentWidth, maxHeight: 800.0),
       child: WebView(
         initialUrl: "https://www.google.com",
         debuggingEnabled: true,
