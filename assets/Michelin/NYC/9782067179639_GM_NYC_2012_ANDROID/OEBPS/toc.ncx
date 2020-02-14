@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content=""/>
+    <meta name="dtb:depth" content="5"/>
+    <meta name="dtb:totalPageCount" content="1"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>Sommaire</text>
+  </docTitle>
+  <navMap>
+  <navPoint id="navpoint-1" playOrder="1"><navLabel><text>Cover </text></navLabel><content src="cover.html"/></navPoint>
+  <navPoint id="navpoint-2" playOrder="2"><navLabel><text>Welcome to the MICHELIN Guide</text></navLabel><content src="file_0.html#welcome"/></navPoint>
+  <navPoint id="navpoint-3" playOrder="3"><navLabel><text>How to navigate your ebook</text></navLabel><content src="file_0.html#how_to"/></navPoint>
+  <navPoint id="navpoint-4" playOrder="4"><navLabel><text>Contents </text></navLabel><content src="file_0.html#IDX_SOM"/></navPoint>
+      <navPoint id="navpoint-5" playOrder="5"><navLabel><text>Manhattan Neighborhood map</text></navLabel><content src="file_0.html#Manhattan_Neighborhoods"/></navPoint>
+  <navPoint id="navpoint-6" playOrder="6"><navLabel><text>Where To Eat</text></navLabel><content src="file_0.html#IDX_SOMWHEREEAT"/>  
+  <navPoint id="navpoint-7" playOrder="7"><navLabel><text>Manhattan</text></navLabel><content src="file_0.html#IDX_QEAT1_0"/>
+  <navPoint id="navpoint-8" playOrder="8"><navLabel><text>Chelsea</text></navLabel><content src="file_0.html#IDX_QEAT2_0"/></navPoint>
+  <navPoint id="navpoint-9" playOrder="9"><navLabel><text>Chinatown &amp; Little Italy</text></navLabel><content src="file_0.html#IDX_QEAT2_1"/></navPoint>
+  <navPoint id="navpoint-10" playOrder="10"><navLabel><text>East Village</text></navLabel><content src="file_0.html#IDX_QEAT2_2"/></navPoint>
+  <navPoint id="navpoint-11" playOrder="11"><navLabel><text>Financial District</text></navLabel><content src="file_1.html#IDX_QEAT2_3"/></navPoint>
+  <navPoint id="navpoint-12" playOrder="12"><navLabel><text>Gramercy, Flatiron &amp; Union Square</text></navLabel><content src="file_2.html#IDX_QEAT2_4"/></navPoint>
+  <navPoint id="navpoint-13" playOrder="13"><navLabel><text>Greenwich, West Village &amp; Meatpacking District</text></navLabel><content src="file_3.html#IDX_QEAT2_5"/></navPoint>
+  <navPoint id="navpoint-14" playOrder="14"><navLabel><text>Harlem, Morningside &amp; Washington Heights</text></navLabel><content src="file_4.html#IDX_QEAT2_6"/></navPoint>
+   <navPoint id="navpoint-15" playOrder="15"><navLabel><text>Lower East Side</text></navLabel><content src="file_4.html#IDX_QEAT2_7"/></navPoint>
+    <navPoint id="navpoint-16" playOrder="16"><navLabel><text>Midtown East &amp; Murray Hill</text></navLabel><content src="file_5.html#IDX_QEAT2_8"/></navPoint>
+	 <navPoint id="navpoint-17" playOrder="17"><navLabel><text>Midtown West</text></navLabel><content src="file_6.html#IDX_QEAT2_9"/></navPoint>
+	  <navPoint id="navpoint-18" playOrder="18"><navLabel><text>SoHo &amp; Nolita</text></navLabel><content src="file_8.html#IDX_QEAT2_10"/></navPoint>
+	   <navPoint id="navpoint-19" playOrder="19"><navLabel><text>TriBeCa</text></navLabel><content src="file_8.html#IDX_QEAT2_11"/></navPoint>
+	    <navPoint id="navpoint-20" playOrder="20"><navLabel><text>Upper East Side</text></navLabel><content src="file_8.html#IDX_QEAT2_12"/></navPoint>
+		<navPoint id="navpoint-21" playOrder="21"><navLabel><text>Upper West Side</text></navLabel><content src="file_9.html#IDX_QEAT2_13"/></navPoint></navPoint>
+  <navPoint id="navpoint-22" playOrder="22"><navLabel><text>The Bronx</text></navLabel><content src="file_10.html#IDX_QEAT1_1"/></navPoint>
+  <navPoint id="navpoint-23" playOrder="23"><navLabel><text>Brooklyn</text></navLabel><content src="file_10.html#IDX_QEAT1_2"/></navPoint>
+  <navPoint id="navpoint-24" playOrder="24"><navLabel><text>Queens</text></navLabel><content src="file_12.html#IDX_QEAT1_3"/></navPoint>
+  <navPoint id="navpoint-25" playOrder="25"><navLabel><text>Staten Island</text></navLabel><content src="file_13.html#IDX_QEAT1_4"/></navPoint>
+</navPoint>
+  <navPoint id="navpoint-26" playOrder="26"><navLabel><text>Straight To</text></navLabel><content src="file_13.html#IDX_SOM_STRAIGHT_TO"/>  <navPoint id="navpoint-27" playOrder="27"><navLabel><text>Starred Restaurants</text></navLabel><content src="file_13.html#IDX_SOM_ETAB_ETOILE"/></navPoint>
+  <navPoint id="navpoint-28" playOrder="28"><navLabel><text>Bib Gourmand</text></navLabel><content src="file_15.html#IDX_SOM_ETAB_BIB"/></navPoint>
+</navPoint>
+  <navPoint id="navpoint-29" playOrder="29"><navLabel><text>Where To Stay</text></navLabel><content src="file_17.html#IDX_SOMWHERESTAY"/>  <navPoint id="navpoint-30" playOrder="30"><navLabel><text>Manhattan</text></navLabel><content src="file_17.html#IDX_ETAB_331715"/></navPoint>
+  <navPoint id="navpoint-31" playOrder="31"><navLabel><text>Brooklyn</text></navLabel><content src="file_18.html#IDX_ETAB_259935"/></navPoint>
+</navPoint>
+  <navPoint id="navpoint-32" playOrder="32"><navLabel><text>Indexes</text></navLabel><content src="file_18.html#IDX_SOMINDEXES"/>  <navPoint id="navpoint-33" playOrder="33"><navLabel><text>Restaurants by Cuisine</text></navLabel><content src="file_18.html#IDX_SOMTYPECUISINE"/></navPoint>
+  <navPoint id="navpoint-34" playOrder="34"><navLabel><text>Cuisines by Neighborhood</text></navLabel><content src="file_20.html#IDX_SOMNEIGHBORHOOD"/></navPoint>
+  <navPoint id="navpoint-35" playOrder="35"><navLabel><text>Starred Restaurants</text></navLabel><content src="file_22.html#IDX_SOMSTARRED"/></navPoint>
+  <navPoint id="navpoint-36" playOrder="36"><navLabel><text>Bib Gourmand</text></navLabel><content src="file_22.html#IDX_SOMBIB"/></navPoint>
+  <navPoint id="navpoint-37" playOrder="37"><navLabel><text>Under $25</text></navLabel><content src="file_22.html#IDX_SOMUNDER25"/></navPoint>
+  <navPoint id="navpoint-38" playOrder="38"><navLabel><text>Brunch</text></navLabel><content src="file_22.html#IDX_SOMBRUNCH"/></navPoint>
+  <navPoint id="navpoint-39" playOrder="39"><navLabel><text>Alphabetical List of Restaurants</text></navLabel><content src="file_22.html#IDX_SOMALPHA_RESTO"/></navPoint>
+   <navPoint id="navpoint-40" playOrder="40"><navLabel><text>Alphabetical List of Hotels</text></navLabel><content src="file_24.html#IDX_SOMALPHA_HOTEL"/></navPoint>
+  <navPoint id="navpoint-41" playOrder="41"><navLabel><text>Index of Maps</text></navLabel><content src="file_24.html#maps"/></navPoint>
+  <navPoint id="navpoint-42" playOrder="42"><navLabel><text>How the MICHELIN Guide Works</text></navLabel><content src="file_24.html#works"/></navPoint>
+  <navPoint id="navpoint-43" playOrder="43"><navLabel><text>What our symbols mean</text></navLabel><content src="file_24.html#symbols"/></navPoint>
+  <navPoint id="navpoint-44" playOrder="44"><navLabel><text>Legal Credits</text></navLabel><content src="file_24.html#copyright"/></navPoint>
+</navPoint>
+  </navMap>
+</ncx>
