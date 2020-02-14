@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:pagination_tests/src/epub/js/xpub_js_api.dart';
 import 'package:preload_page_view/preload_page_view.dart' as preload_pageview;
+import 'package:preload_page_view/preload_page_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'src/widgets/fling_page_scroll_physics.dart';
@@ -108,44 +109,44 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _chaptersListView(BuildContext context) {
     // return SnappingListView(
     // Nous pourrions utiliser soit la PageScroll en mode lecture, soit la FlingPageScroll dans un mode "overview" comme Google Play
-    final scrollPhysics = flingMode ? FlingPageScrollPhysics(PageController()) : preload_pageview.PageScrollPhysics();
+    final scrollPhysics = flingMode
+        ? FlingPageScrollPhysics(PageController())
+        : preload_pageview.PageScrollPhysics();
     return createListview(scrollPhysics);
   }
 
-  ListView createListview(ScrollPhysics scrollPhysics) {
-    return ListView(
-    // itemExtent: MediaQuery.of(context).size.width,
-    //itemExtent: MediaQuery.of(context).size.width * 3,
-    scrollDirection: Axis.horizontal,
-    physics: scrollPhysics,
-    padding: EdgeInsets.all(0.0),
-    children: <Widget>[
-      PaginatingWebView(
-        1,
-        key: _webviewKeys[1],
-      ),
+  Widget createListview(ScrollPhysics scrollPhysics) {
+    return PreloadPageView(
+      // itemExtent: MediaQuery.of(context).size.width,
+      //itemExtent: MediaQuery.of(context).size.width * 3,
+      preloadPagesCount: 3,
+      controller: PreloadPageController(),
+//      scrollDirection: Axis.horizontal,
+      //physics: scrollPhysics,
+      //padding: EdgeInsets.all(0.0),
+      children: <Widget>[
+        PaginatingWebView(
+          1,
+          key: _webviewKeys[1],
+        ),
 //        PaginatingWebView(
 //          2,
 //          key: _webviewKeys[2],
 //        ),
-      PaginatingWebView(
-        3,
-        key: _webviewKeys[3],
-      ),
-      PaginatingWebView(
-        4,
-        key: _webviewKeys[4],
-      ),
-      PaginatingWebView(
-        5,
-        key: _webviewKeys[5],
-      ),
-      PaginatingWebView(
-        6,
-        key: _webviewKeys[6],
-      ),
-    ],
-  );
+        PaginatingWebView(
+          3,
+          key: _webviewKeys[3],
+        ),
+        PaginatingWebView(
+          4,
+          key: _webviewKeys[4],
+        ),
+        PaginatingWebView(
+          5,
+          key: _webviewKeys[5],
+        ),
+      ],
+    );
   }
 
   ConstrainedBox createWebview(String initialUrl) {
@@ -155,14 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
         debuggingEnabled: true,
         gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
           Factory<VerticalDragGestureRecognizer>(
-                () => VerticalDragGestureRecognizer(),
+            () => VerticalDragGestureRecognizer(),
           ),
         },
         initialUrl: initialUrl,
       ),
     );
   }
-
 }
 /*
 GestureDetector(
@@ -216,13 +216,14 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
 
   @override
   Widget build(BuildContext context) {
-    var webViewHorizontalGestureRecognizer =
-    HorizontalDragGestureRecognizer();
-        // WebViewHorizontalGestureRecognizer();
+    var webViewHorizontalGestureRecognizer = HorizontalDragGestureRecognizer();
+    // WebViewHorizontalGestureRecognizer();
     contentWidth = MediaQuery.of(context).size.width * 3;
-    Fimber.d("============= Device screen width: ${MediaQuery.of(context).size.width}");
+    Fimber.d(
+        "============= Device screen width: ${MediaQuery.of(context).size.width}");
     return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: contentWidth, maxWidth: contentWidth, maxHeight: 800.0),
+      constraints: BoxConstraints(
+          minWidth: contentWidth, maxWidth: contentWidth, maxHeight: 800.0),
       child: WebView(
         initialUrl: "https://www.google.com",
         debuggingEnabled: true,
@@ -232,7 +233,8 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
           JavascriptChannel(
               name: 'setWebviewWidth',
               onMessageReceived: (JavascriptMessage message) {
-                Fimber.d("================ setWebviewWidth: ${message.message}");
+                Fimber.d(
+                    "================ setWebviewWidth: ${message.message}");
                 setState(() {
                   contentWidth = double.parse(message.message);
                 });
@@ -265,12 +267,11 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
         },
       ),
     );
-
   }
 
   _loadHtmlFromAssets() async {
-    String fileText =
-        await rootBundle.loadString('assets/debug_snap_${widget.chapNumber}.html');
+    String fileText = await rootBundle
+        .loadString('assets/debug_snap_${widget.chapNumber}.html');
     _controller.loadUrl(Uri.dataFromString(fileText,
             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString());
