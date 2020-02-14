@@ -216,8 +216,8 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
 
   @override
   Widget build(BuildContext context) {
-    var webViewHorizontalGestureRecognizer = HorizontalDragGestureRecognizer();
-    // WebViewHorizontalGestureRecognizer();
+    // var webViewHorizontalGestureRecognizer = HorizontalDragGestureRecognizer();
+    var webViewHorizontalGestureRecognizer = WebViewHorizontalGestureRecognizer();
     contentWidth = MediaQuery.of(context).size.width * 3;
     Fimber.d(
         "============= Device screen width: ${MediaQuery.of(context).size.width}");
@@ -242,14 +242,14 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
           JavascriptChannel(
               name: 'sendBeginningVisibile',
               onMessageReceived: (JavascriptMessage message) {
-//                webViewHorizontalGestureRecognizer.setBeginningVisible(
-//                    message, webViewHorizontalGestureRecognizer);
+                webViewHorizontalGestureRecognizer.setBeginningVisible(
+                    message, webViewHorizontalGestureRecognizer);
               }),
           JavascriptChannel(
               name: 'sendEndVisibile',
               onMessageReceived: (JavascriptMessage message) {
-//                webViewHorizontalGestureRecognizer.setEndVisible(
-//                    message, webViewHorizontalGestureRecognizer);
+                webViewHorizontalGestureRecognizer.setEndVisible(
+                    message, webViewHorizontalGestureRecognizer);
               }),
         ]),
         gestureRecognizers: [
