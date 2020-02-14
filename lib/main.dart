@@ -62,7 +62,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const NB_CHAPTERS = 7;
+  static const NB_CHAPTERS = 6;
   final _webviewKeys =
       List<GlobalKey>.generate(NB_CHAPTERS, (_) => GlobalKey());
   var _controller = [];
@@ -199,7 +199,7 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
 
   _loadHtmlFromAssets() async {
     String fileText =
-        await rootBundle.loadString('assets/chap_${widget.chapNumber}.html');
+        await rootBundle.loadString('assets/debug_snap_${widget.chapNumber}.html');
     _controller.loadUrl(Uri.dataFromString(fileText,
             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString());
@@ -348,13 +348,13 @@ PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft 
 
   @override
   void handleEvent(PointerEvent event) {
-    Fimber.d(">>> handleEvent ==================================== ");
+    // Fimber.d(">>> handleEvent ==================================== ");
     _dragDistance = _dragDistance + event.delta;
     if (event is PointerMoveEvent) {
       final double dy = _dragDistance.dy.abs();
       final double dx = _dragDistance.dx.abs();
 
-      if (dy > dx && dy > kTouchSlop) {
+      if (isVerticalDrag(dy, dx)) {
         // vertical drag - stop tracking
         stopTrackingPointer(event.pointer);
         _dragDistance = Offset.zero;
@@ -362,6 +362,8 @@ PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft 
         // horizontal drag
         if ((isEndVisible && isDraggingTowardsLeft(event)) ||
             (isBeginningVisible && isDraggingTowardsRight(event))) {
+          // The enclosing PageView must handle the drag since the webview cannot scroll anymore
+          stopTrackingPointer(event.pointer);
         } else {
           // horizontal drag - accept
           resolve(GestureDisposition.accepted);
@@ -370,6 +372,8 @@ PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft 
       }
     }
   }
+
+  bool isVerticalDrag(double dy, double dx) => dy > dx && dy > kTouchSlop;
 
   bool isDraggingTowardsRight(PointerEvent event) => event.delta.dx > 0;
 

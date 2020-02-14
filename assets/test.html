@@ -8,72 +8,81 @@
             <meta name="viewport" content="width=device-width,initial-scale=1">
             <title>Scroll Snapping Examples</title>
             <style>
-
-                .child {
-                    width: 400px;
-                    height: 400px;
-                    position: relative;
-                    background-color: #F0F0F0;
-                    display: inline-block;
-                    margin-right: -4px;
-                    border: 1px solid black;
+                body {
+                    font-family: helvetica;
+                    font-weight: bold;
+                    color: white;
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
                 }
 
-                .label {
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 25%;
-                    background-color: white;
-                    margin: 100px auto 0 auto;
+                .height-setter{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 2px;
+                    background-color: red;
+                    z-index: 999;
                 }
 
-                .label > h1 {
-                    font-size: 80px;
-                    padding-left: calc(50% - 22px);
-                    padding-top: calc(50% - 60px);
+                .wrapper {
+                    scroll-snap-type: y mandatory;
+                    max-height: 100vh;
+                    overflow-y: scroll;
                 }
 
-
-                .container {
-                    width: 402px;
-                    height: 410px;
-                    overflow-x: auto;
-                    overflow-y: hidden;
-                    white-space: nowrap;
-                    -webkit-overflow-scrolling: touch;
-                    margin: 10vh auto 0 auto;
+                .component {
+                    scroll-snap-align: center;
+                    scroll-snap-stop: always;
+                    height: 50vh;
+                    margin: 25vh 0;
                 }
 
-                #snap-scroll-container {
-                    -webkit-scroll-snap-type: mandatory;
-                    scroll-snap-type: x mandatory;
-                    -webkit-scroll-snap-points-x: repeat(100%);
-                    scroll-snap-points-x: repeat(100%);
+                .component.red {
+                     background-color: red;
+                 }
+
+                .component.blue{
+                     background-color: blue;
+                 }
+
+                .component.orange {
+                     background-color: orange;
+                 }
+
+                .component.green {
+                     background-color: green;
                 }
 
-                #snap-scroll-container > .child {
-                    scroll-snap-align: start;
-                }
 
             </style>
         </head>
 
-<body>
+<body class="wrapper">
 
-<!-- Simple scroll snapping container (using repeat) -->
-<!--<a name="scroll-snap-1"></a>-->
-<div class="container" id="snap-scroll-container">
-    <div class="child">
-        <div class="label"><h1>1</h1></div>
-    </div>
-    <div class="child">
-        <div class="label"><h1>2</h1></div>
-    </div>
-    <div class="child">
-       <div class="label"><h1>3</h1></div>
-    </div>
-    <div class="child">
-        <div class="label"><h1>4</h1></div>
+<div class="height-setter">
+</div>
+<div>
+    <div>
+        <div style="color: black;">
+            LOREM IPSUM
+        </div>
+        <div>
+
+            <div class="component red">
+                component
+            </div>
+            <div class="component blue">
+                component
+            </div>
+            <div class="component orange">
+                component
+            </div>
+            <div class="component green">
+                component
+            </div>
+        </div>
     </div>
 </div>
 

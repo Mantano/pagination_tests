@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            column-count: 3;
+            column-gap: 40px;
+            width: 300vw;
+            height: 100vh;
+            max-height: 100vh;
+        }
+
+        #newspaper {
+            /* Old Chrome, Safari and Opera */
+            -webkit-column-count: 3;
+            -webkit-column-gap: 40px;
+
+            /* Old Firefox */
+            -moz-column-count: 3;
+            -moz-column-gap: 40px;
+
+            /* Standard syntax */
+            column-count: 3;
+            column-gap: 40px;
+            width: 300%;
+            max-height: 100vh;
+        }
+
+        /*---------------------*/
+        .container {
+            display: flex;
+            overflow: auto;
+            outline: 1px dashed lightgray;
+            flex: none;
+            padding: 0;
+        }
+
+        .container.x {
+            width: 100%;
+            height: 100vh;
+            /*flex-flow: row nowrap;*/
+        }
+
+        /* scroll-snap */
+        .mandatory-scroll-snapping {
+            scroll-snap-type: x mandatory;
+        }
+
+        .pagination_markers {
+            display: flex;
+            margin-top: -100vh;
+            margin-left: 0;
+            width: 400vw;
+        }
+
+        .page_marker {
+            scroll-snap-align: center;
+            flex: none;
+            display: inline-block; /* Allows to set a width and height on the element. */
+            min-width: 100vw;
+            width: 100vw;
+            height: 100vh;
+            border: 1px solid lightgray;
+            background-color: cyan;
+            /*z-index: -1000;*/
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!--     <div class="container x mandatory-scroll-snapping" dir="ltr" style="position: absolute; top: 0; left: 0">-->
+         <div id="newspaper" style="overflow-x: visible;">
+             <div id="beginning-marker" style="background-color: red; width: 1px; height: 1px; float: left;"></div>
+             <h1>Chapter 1</h1>
+             <p><a href="javascript:console.log('Click !')">Click Me</a>
+                 Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+                 nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                 quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+                 vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+                 nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                 augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+                 imperdiet doming id quod mazim placerat facer possim assum.
+             </p>
+             <p>
+                 Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+                 nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                 quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+                 vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+                 nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                 augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+                 imperdiet doming id quod mazim placerat facer possim assum.
+             </p>
+             <p>
+                 Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+                 nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                 quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+                 vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+                 nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                 augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+                 imperdiet doming id quod mazim placerat facer possim assum.
+             </p>
+             <p>
+                 Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+                 nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                 quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+                 vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+                 nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                 augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+                 imperdiet doming id quod mazim placerat facer possim assum.
+             </p>
+             <p>
+                 Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+                 nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                 quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+                 vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+                 nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                 augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+                 imperdiet doming id quod mazim placerat facer possim assum.
+             </p>
+             <p>
+                 Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
+                 nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                 quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+                 vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+                 nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+                 augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+                 imperdiet doming id quod mazim placerat facer possim assum.
+             </p>
+             <div id="end-marker" style="background-color: blue; width: 1px; height: 1px; float: right;"></div>
+         </div>
+         <div class="pagination_markers mandatory-scroll-snapping" style="">
+             <div class="page_marker" style="background-color: yellow;">1</div>
+             <div class="page_marker" style="background-color: cyan;">2</div>
+             <div class="page_marker" style="background-color: yellow;">3</div>
+             <div class="page_marker" style="background-color: cyan;">4</div>
+         </div>
+
+
+</body>
+<script type="text/javascript">
+    // var observerBeginning = new IntersectionObserver(function(entries) {
+    //     // isIntersecting is true when element and viewport are overlapping
+    //     // isIntersecting is false when element and viewport don't overlap
+    //     //console.log('BEGINNING visible: ', entries[0].isIntersecting); // === true
+    //     setTimeout(console.log.bind(console, '\n%c' + 'BEGINNING visible: ', entries[0].isIntersecting, ''));
+    //     sendBeginningVisibile.postMessage(entries[0].isIntersecting)
+    // }, { threshold: [0] });
+    // var observerEnd = new IntersectionObserver(function(entries) {
+    //     // isIntersecting is true when element and viewport are overlapping
+    //     // isIntersecting is false when element and viewport don't overlap
+    //     // console.log('END visible: ', entries[0].isIntersecting); // === true
+    //     setTimeout(console.log.bind(console, '\n%c' + 'END visible: ', entries[0].isIntersecting, ''));
+    //     sendEndVisibile.postMessage(entries[0].isIntersecting)
+    // }, { threshold: [0] });
+    //
+    // // If any of these "markers" are visible in the viewport, the PageView must handle drags.
+    // observerBeginning.observe(document.querySelector("#beginning-marker"));
+    // observerEnd.observe(document.querySelector("#end-marker"));
+
+    $.fn.howMuchCols = function(){
+        return Math.round($(this).find('#end-marker').position().left - $(this).position().left / $(this).outerWidth());
+    };
+
+//     $( document ).ready(function() {
+//
+//         let viewportWidth = $(window).width();
+//         let nbCols = Math.round($(this).find('#end-marker').position().left / viewportWidth);
+//
+//         let divs = "";
+//         for ( i = 0; i < nbCols; i++ ) {
+// //            $('#newspaper').append("<div class=\"page_overlay\">Page " + i + "</div>")
+//             divs += "<div class=\"page_overlay\">Page " + i + "</div>";
+//         }
+//         console.log("==== divs: " + divs);
+//         let np = $('#newspaper');
+// //        np.append("<div style=\"display: flex; z-index: -1000; width: " + (nbCols*100) + "vw; margin-left: -" + (np.width()-viewportWidth) + "px\">" + divs + "</div>");
+//
+//         setTimeout(console.log.bind(console, "ready! NB COLUMNS: " + nbCols + ", viewportWidth width: " + viewportWidth));
+//     });
+</script>
+
+</html>
