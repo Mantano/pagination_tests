@@ -116,7 +116,8 @@ PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft 
 
   @override
   void handleEvent(PointerEvent event) {
-    // Fimber.d(">>> handleEvent ==================================== ");
+    // Fimber.d(
+    //     ">>> handleEvent, delta=${event.delta}, isEndVisible: $isEndVisible, isBeginningVisible: $isBeginningVisible ");
     _dragDistance = _dragDistance + event.delta;
     if (event is PointerMoveEvent) {
       final double dy = _dragDistance.dy.abs();
