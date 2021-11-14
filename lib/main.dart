@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fimber/fimber.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -68,6 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
       List<GlobalKey>.generate(NB_CHAPTERS, (_) => GlobalKey());
   var _controller = [];
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Enable hybrid composition.
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
 
   @override
   Widget build(BuildContext context) {
