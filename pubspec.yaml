@@ -19,9 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_fimber: ^0.6.3
-  fimber: ^0.6.1
-  webview_flutter: ^2.3.1
+  flutter_fimber: ^0.6.4
+  fimber: ^0.6.4
+  webview_flutter: ^3.0.0
   preload_page_view: ^0.1.6
   tuple: ^2.0.0
 
@@ -78,18 +78,9 @@ flutter:
   assets:
     - assets/js/jquery-3.4.1.min.js
     - assets/js/jquery-3.4.1.min.js
-    - assets/css/pagination.css
-    - assets/css/paginationBookari.css
     - assets/chap_1.html
     - assets/chap_2.html
     - assets/chap_3.html
     - assets/chap_4.html
     - assets/chap_5.html
     - assets/chap_6.html
-    - assets/chap_7.html
-    - assets/debug_snap_1.html
-    - assets/debug_snap_2.html
-    - assets/debug_snap_3.html
-    - assets/debug_snap_4.html
-    - assets/debug_snap_5.html
-    - assets/debug_snap_6.html
