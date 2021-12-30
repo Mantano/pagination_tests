@@ -45,7 +45,8 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
       constraints: BoxConstraints(
           minWidth: contentWidth, maxWidth: contentWidth, maxHeight: 800.0),
       child: WebView(
-        initialUrl: "https://www.google.com",
+        initialUrl:
+            Uri.encodeFull("https://www.google.com?q=${widget.chapNumber}"),
         debuggingEnabled: true,
         javascriptMode: JavascriptMode.unrestricted,
         //javascriptChannels: epubCallbacks.channels,
@@ -60,17 +61,22 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
                 });
               }),
           JavascriptChannel(
-              name: 'sendBeginningVisibile',
+              name: 'sendBeginningVisible',
               onMessageReceived: (JavascriptMessage message) {
                 // Fimber.d("Message received: $message");
                 webViewHorizontalGestureRecognizer.setBeginningVisible(
                     message, webViewHorizontalGestureRecognizer);
               }),
           JavascriptChannel(
-              name: 'sendEndVisibile',
+              name: 'sendEndVisible',
               onMessageReceived: (JavascriptMessage message) {
                 webViewHorizontalGestureRecognizer.setEndVisible(
                     message, webViewHorizontalGestureRecognizer);
+              }),
+          JavascriptChannel(
+              name: 'flutter_log',
+              onMessageReceived: (JavascriptMessage message) {
+                print("FromJS: ${message.message}");
               }),
         ]),
         gestureRecognizers: [
@@ -82,50 +88,34 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
           //webViewHorizontalGestureRecognizer.controller = webViewController;
           jsApi = JsApi((js) => _controller.evaluateJavascript(js));
 //                  epubCallbacks.jsApi = _jsApi;
-          _loadHtmlFromAssets();
+          //_loadHtmlFromAssets();
           //_injectCss();
           //_changeNbPages(kDefaultNbPages);
         },
+        onPageFinished: _onPageFinished,
       ),
     );
   }
 
   _loadHtmlFromAssets() async {
-    String fileText = await rootBundle
-        .loadString('assets/debug_snap_${widget.chapNumber}.html');
+    String fileText =
+        await rootBundle.loadString('assets/chap_${widget.chapNumber}.html');
     _controller.loadUrl(Uri.dataFromString(fileText,
             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString());
   }
 
-  _injectCss() async {
-    Fimber.d(">>> Loading CSS...");
-    // String cssText = await rootBundle.loadString('assets/css/pagination.css');
-    String cssText = "#container {width: 60%}";
-    Codec<String, String> stringToBase64 = utf8.fuse(base64);
-    var cssText64 = stringToBase64.encode(cssText);
-    Fimber.d(">>> Injecting CSS: ${cssText.replaceAll("\n", " ")}");
-    var js = """
-var parent = document.getElementsByTagName('head').item(0);
-var style = document.createElement('style');
-style.type = 'text/css';
-style.innerHTML = window.atob('$cssText64');
-parent.appendChild(style);
-""";
-    Fimber.d(">>> JS: ${js.replaceAll("\n", " ")}");
+  // void loadJS(String jScript) {
+  //   Fimber.d("loadJS: $jScript");
+  //   _controller.evaluateJavascript("javascript:(function(){$jScript})()");
+  // }
 
-    _controller.loadUrl(js);
-  }
-
-  _changeNbPages(nbPages) {
-    String js = "document.documentElement.style.setProperty('nb-pages', " +
-        nbPages +
-        ");";
-    _controller.evaluateJavascript(js);
-  }
-
-  void loadJS(String jScript) {
-    Fimber.d("loadJS: $jScript");
-    _controller.evaluateJavascript("javascript:(function(){$jScript})()");
+  void _onPageFinished(String url) {
+    Fimber.d("============== _onPageFinished[${widget.chapNumber}]");
+    try {
+      // jsApi?.initPagination();
+    } catch (e, stacktrace) {
+      Fimber.d("_onPageFinished ERROR", ex: e, stacktrace: stacktrace);
+    }
   }
 }

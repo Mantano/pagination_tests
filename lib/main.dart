@@ -123,34 +123,42 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget createListview(ScrollPhysics scrollPhysics) {
-    return PreloadPageView(
-      // itemExtent: MediaQuery.of(context).size.width,
-      //itemExtent: MediaQuery.of(context).size.width * 3,
-      preloadPagesCount: 3,
-      controller: PreloadPageController(),
+    return Stack(
+      children: [
+        WebView(
+          initialUrl: "https://www.reddit.com",
+          debuggingEnabled: true,
+        ),
+        PreloadPageView(
+          // itemExtent: MediaQuery.of(context).size.width,
+          //itemExtent: MediaQuery.of(context).size.width * 3,
+          preloadPagesCount: 3,
+          controller: PreloadPageController(/*viewportFraction: 0.8*/),
 //      scrollDirection: Axis.horizontal,
-      //physics: scrollPhysics,
-      //padding: EdgeInsets.all(0.0),
-      children: <Widget>[
-        PaginatingWebView(
-          1,
-          key: _webviewKeys[1],
-        ),
-        PaginatingWebView(
-          2,
-          key: _webviewKeys[2],
-        ),
-        PaginatingWebView(
-          3,
-          key: _webviewKeys[3],
-        ),
-        PaginatingWebView(
-          4,
-          key: _webviewKeys[4],
-        ),
-        PaginatingWebView(
-          5,
-          key: _webviewKeys[5],
+          //physics: scrollPhysics,
+          //padding: EdgeInsets.all(0.0),
+          children: <Widget>[
+            PaginatingWebView(
+              1,
+              key: _webviewKeys[1],
+            ),
+            PaginatingWebView(
+              2,
+              key: _webviewKeys[2],
+            ),
+            PaginatingWebView(
+              3,
+              key: _webviewKeys[3],
+            ),
+            PaginatingWebView(
+              4,
+              key: _webviewKeys[4],
+            ),
+            PaginatingWebView(
+              5,
+              key: _webviewKeys[5],
+            ),
+          ],
         ),
       ],
     );

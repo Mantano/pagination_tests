@@ -20,9 +20,17 @@ class WebViewHorizontalGestureRecognizer
 
   int _currentPointer;
 
-  bool get isBeginningVisible => _isBeginningVisible;
+  bool get isBeginningVisible {
+    Fimber.d(
+        "========= isBeginningVisible[$chapNumber]? --> $_isBeginningVisible");
+    return _isBeginningVisible;
+  }
 
-  bool get isEndVisible => _isEndVisible;
+  //bool get isEndVisible => true; //_isEndVisible;
+  bool get isEndVisible {
+    Fimber.d("========= isEndVisible[$chapNumber]? --> $_isEndVisible");
+    return _isEndVisible;
+  }
 
   set isBeginningVisible(bool value) {
     Fimber.d(">>> SETTING isBeginningVisible[$chapNumber] to $value");
@@ -149,7 +157,7 @@ PrintScrollPosition.postMessage(document.getElementById('container').scrollLeft 
   bool isDraggingTowardsLeft(PointerEvent event) => (event.delta.dx < 0);
 
   void askScrollPosToWebview() {
-    Fimber.d(">>> askScrollPosToWebvie[$chapNumber]");
+    Fimber.d(">>> askScrollPosToWebview[$chapNumber]");
     controller.evaluateJavascript(getScrollPosJSString);
   }
 }

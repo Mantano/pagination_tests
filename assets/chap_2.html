@@ -1,568 +1,451 @@
 <!DOCTYPE html>
+<!-- saved from url=(0080)file:///Users/Shared/dvpts/FlutterApps/pagination_tests/assets/debug_snap_2.html -->
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-
-        :root {
-            --nb_pages: 5;
-            --column-gap-base: 40px;
+        .container {
+            height: 100pc;
+            min-height: 100pc;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
         }
 
-        #container {
+        #contenuSpineItem {
+            /* We fix the position to be able to add positioned pages at the end*/
+            position: relative;
+
             /* Old Chrome, Safari and Opera */
-            -webkit-column-count: var(--nb_pages);
-            -webkit-column-gap: 100px;
+            -webkit-column-count: 3;
+            -webkit-column-gap: 40px;
 
             /* Old Firefox */
-            -moz-column-count: var(--nb_pages);
-            -moz-column-gap: 100px;
+            -moz-column-count: 3;
+            -moz-column-gap: 40px;
 
             /* Standard syntax */
-            column-count: var(--nb_pages);
-            column-gap: calc(var(--column-gap-base) *2);
-            min-width: calc(var(--nb_pages) * 100vw);
-
-            /*float: left;*/
-            /*clear: none;*/
-            /*z-index: -1;*/
-            margin-left: var(--column-gap-base);
+            column-count: 3;
+            column-gap: 40px;
+            width: 300%;
+            max-height: 100vh;
         }
 
-
-        #snap-scroll-container {
-            /*scroll-snap-type: x mandatory;*/
-            /*!*-webkit-scroll-snap-type: x mandatory;*!*/
-            /*overflow-x: scroll;*/
-            /*!* Enable Safari touch scrolling physics which is needed for scroll snap *!*/
-            /*-webkit-overflow-scrolling: touch;*/
-        }
-
-        .page_overlay {
-
-        }
-
-        #page_1, #page_2, #page_3, #page_4, #page_5 {
-            position: absolute;
-            width: calc(33% - 40px);
-            height: 100vh;
-            top: 0;
-            -webkit-box-shadow: 0px 1px 10px 5px #ccc;
-            box-shadow: 0px 1px 10px 5px #ccc;
-            margin-left: 20px;
-            font-weight: bold;
-            font-size: 72px;
-            font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-        }
-
-        .gallery {
-            position: relative;
-            /*max-width: 800px;*/
-            padding: 0 10;
-        }
-
-        .gallery_scroller {
-            /* snap mandatory on horizontal axis  */
-            scroll-snap-type: x mandatory;
-
-            overflow-x: scroll;
-            overflow-y: hidden;
-
+        #paginateur {
+            margin-top: -100vh;
+            width: 400vw;
             display: flex;
-            align-items: center;
+            opacity: 50%;
+            /*overflow-x: scroll;*/
 
-            height: 80vh;
-
-            /* Enable Safari touch scrolling physics which is needed for scroll snap */
-            -webkit-overflow-scrolling: touch;
         }
 
-        .gallery_scroller div.page_overlay {
-            /* snap align center  */
+        /* coloration */
+        #paginateur > div:nth-child(even) {
+            background-color: #87EA87;
+        }
+
+        #paginateur > div:nth-child(odd) {
+            background-color: #87CCEA;
+        }
+
+        #paginateur > div {
             scroll-snap-align: center;
-            position: relative;
-            box-shadow: 0px 1px 10px 5px #ccc;
-            margin: 10px 10px 10px 20px;
-        }
-
-        .gallery_scroller div.page_overlay {
-            min-width: 100%;
-            min-height: 95%;
-        }
-
-        .gallery .btn {
-            position: absolute;
-
-            top: 50%;
-            transform: translateY(-50%);
-
-            height: 30px;
-            width: 30px;
-
-            border-radius: 2px;
-            background-color: rgba(0,0,0,0.5);
-            background-position: 50% 50%;
-            background-repeat: no-repeat;
-
-            z-index: 1;
-        }
-
-        .gallery .btn.next {
-            background-image: url('data:image/svg+xml;charset=utf-8,<svg width="18" height="18" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><title>Shape</title><path d="M25.557 14.7L13.818 2.961 16.8 0l16.8 16.8-16.8 16.8-2.961-2.961L25.557 18.9H0v-4.2z" fill="%23FFF" fill-rule="evenodd"/></svg>');
-            right: 10px;
-        }
-
-        .gallery .btn.prev {
-            background-image: url('data:image/svg+xml;charset=utf-8,<svg width="18" height="18" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><title>Shape</title><path d="M33.6 14.7H8.043L19.782 2.961 16.8 0 0 16.8l16.8 16.8 2.961-2.961L8.043 18.9H33.6z" fill="%23FFF" fill-rule="evenodd"/></svg>');
-            left: 10px;
-        }
-
-        #paginated_gallery {
-            position: absolute;
-            top: 40px;
-            left: 0;
+            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
+            min-width: 100vw;
         }
 
     </style>
 </head>
 
-<body>
+<body style="margin: 0 !important; ">
 
-<!--<p>Below is a gallery where every item is the same size and centered. </p>-->
-<!--<label for="alignment">Alignment:</label>-->
-<!--<select id="alignment_option">-->
-<!--    <option value="start">Start</option>-->
-<!--    <option value="center" selected>Center</option>-->
-<!--    <option value="end">End</option>-->
-<!--    <option value="none">None</option>-->
-<!--</select>-->
-<div id="beginning-marker" style="background-color: red; width: 1px; height: 1px; float: left;"></div>
+<div class="container">
 
-<div id="paginated_gallery" class="gallery">
-    <div class="gallery_scroller">
+    <div id="contenuSpineItem">
 
-        <div id="container" style="width: 300%; padding-top: 80px; margin-top: 80px;">
-
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-            <p><a href="javascript:console.log('Click !')">Click Me</a>
-                Lorem ipsum dolor sit amet, <input type="submit" value="Submit"/>consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-                vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
-                augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
-                imperdiet doming id quod mazim placerat facer possim assum.
-            </p>
-
-
-        </div>
-
-        <div class="page_overlay" style="margin-left: calc(var(--nb_pages) * -100vw - var(--column-gap-base))"> </div>
-        <div class="page_overlay" style="width: 100vw;"> </div>
-        <div class="page_overlay" style="width: 100vw;"> </div>
-        <div class="page_overlay" style="width: 100vw;"> </div>
-        <div class="page_overlay" style="width: 100vw;"> </div>
-
+        <h1>Chapter 2</h1>
+        <p><a href="javascript:flutter_log.postMessage(&#39;Click !&#39;)">Click Me</a>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, <input type="submit" value="Submit">consectetuer adipiscing elit, sed diam
+            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
+            vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
+            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit
+            augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil
+            imperdiet doming id quod mazim placerat facer possim assum.
+        </p>
     </div>
-    <span class="btn prev"></span>
-    <span class="btn next"></span>
+    <div id="paginateur"></div>
 
-
+    <!--     <div class="container x mandatory-scroll-snapping" dir="ltr" style="position: absolute; top: 0; left: 0">-->
 </div>
 
-<div id="end-marker" style="background-color: blue; width: 1px; height: 1px; float: right;"></div>
-
 </body>
-<script type="text/javascript">
-    // document.querySelector('#alignment_option').addEventListener('change', updateAlignment);
-
-    const gallery = document.querySelector('#paginated_gallery');
-    const gallery_scroller = gallery.querySelector('.gallery_scroller');
-    const gallery_item_size = gallery_scroller.querySelector('div.page_overlay').clientWidth;
-
-    gallery.querySelector('.btn.next').addEventListener('click', scrollToNextPage);
-    gallery.querySelector('.btn.prev').addEventListener('click', scrollToPrevPage);
-
-    // For paginated scrolling, simply scroll the gallery one item in the given
-    // direction and let css scroll snaping handle the specific alignment.
-    function scrollToNextPage() {
-        gallery_scroller.scrollBy(gallery_item_size, 0);
-    }
-    function scrollToPrevPage() {
-        gallery_scroller.scrollBy(-gallery_item_size, 0);
-    }
-
-    function updateAlignment(event) {
-        const alignment = event.target.value;
-        for (item of gallery.querySelectorAll('.gallery_scroller > div'))
-            item.style.scrollSnapAlign = alignment;
-
-        // Currently changing scroll alignment does not force a re-snap in Chrome.
-        // This is a bug: http://crbug.com/866127
-        // In meantime, if desired a scroll snap can be triggered using a small
-        // scripted scroll e.g.: `gallery_scroller.scrollBy(1, 0);`
-    }
-
-
-</script>
 
 <script type="text/javascript">
 
-    var observerBeginning = new IntersectionObserver(function(entries) {
+    const observerBeginning = new IntersectionObserver(function (entries) {
         // isIntersecting is true when element and viewport are overlapping
         // isIntersecting is false when element and viewport don't overlap
-        //console.log('BEGINNING visible: ', entries[0].isIntersecting); // === true
-        setTimeout(console.log.bind(console, '\n%c' + 'BEGINNING visible: ', entries[0].isIntersecting, ''));
-        sendBeginningVisibile.postMessage(entries[0].isIntersecting)
-    }, { threshold: [0] });
-    var observerEnd = new IntersectionObserver(function(entries) {
+        flutter_log.postMessage('BEGINNING visible: ', entries[0].isIntersecting); // === true
+        sendBeginningVisible.postMessage(entries[0].isIntersecting)
+    }, {threshold: [0.8]});
+    const observerEnd = new IntersectionObserver(function (entries) {
         // isIntersecting is true when element and viewport are overlapping
         // isIntersecting is false when element and viewport don't overlap
-        // console.log('END visible: ', entries[0].isIntersecting); // === true
-        setTimeout(console.log.bind(console, '\n%c' + 'END visible: ', entries[0].isIntersecting, ''));
-        sendEndVisibile.postMessage(entries[0].isIntersecting)
-    }, { threshold: [0] });
+        flutter_log.postMessage('END visible: ', entries[0].isIntersecting); // === true
+        // setTimeout(flutter_log.bind(console, '\n%c' + 'END visible: ', entries[0].isIntersecting, ''));
+        sendEndVisible.postMessage(entries[0].isIntersecting)
+    }, {threshold: [0.8]});
 
-    // If any of these "markers" are visible in the viewport, the PageView must handle drags.
-    observerBeginning.observe(document.querySelector("#beginning-marker"));
-    observerEnd.observe(document.querySelector("#end-marker"));
+    // // If any of these "markers" are visible in the viewport, the PageView must handle drags.
+    // observerBeginning.observe(document.querySelector("#beginning-marker"));
+    // observerEnd.observe(document.querySelector("#end-marker"));
 
-    $( document ).ready(function() {
+    function initPagination() {
+        flutter_log.postMessage("========= CH 2: window ONLOAD");
+//        flutter_log.postMessage("========= CH 2: docText" + $('body').textContent);
 
-        console.log( "ready!" );
-        let viewportWidth = $(window).width();
-        //$('#beginning-marker').offset({ top: 0, left: $(window).width()-20 });
-        // $('#end-marker').offset({ top: 0, right: 0 });
-        //$('#end-marker').offset({ top: 0, left: $('#newspaper').width()+100 });
-        // Source: https://stackoverflow.com/questions/6505067/how-to-setup-absolute-position-of-a-div-with-jquery
-        // $('#end-marker').css({
-        //     position: "absolute",
-        //     marginLeft: 0, marginTop: 0,
-        //     top: 100, right: $('#newspaper').width()-200
-        // }).appendTo('body');
-        // $('#lol').css({
-        // position: "absolute",
-//            marginLeft: 0, marginTop: 0,
-//            top: 0, left: 0
-//    }).appendTo('body');
+        // let viewportWidth = $(window).width();
+        let viewportWidth = window.screen.width;
+        flutter_log.postMessage("========= CH 2: viewportWidth" + viewportWidth);
+        let spineItemWidth = $('#contenuSpineItem').width();
+        flutter_log.postMessage("========= CH 2: spineItemWidth" + spineItemWidth);
 
+        let nbCols = Math.round(spineItemWidth / viewportWidth);
+        flutter_log.postMessage("========= CH 2: nbCols: " + nbCols);
+
+        let paginator = $('#paginateur');
+        flutter_log.postMessage("========= CH 2: $('#contenuSpineItem')" + $('#contenuSpineItem'));
+        flutter_log.postMessage("========= CH 2: $('#contenuSpineItem').length" + $('#contenuSpineItem').length);
+        flutter_log.postMessage("========= CH 2: $('#contenuSpineItem').eq(0).width" + $('#contenuSpineItem').eq(0).width());
+        flutter_log.postMessage("========= CH 2: document.body.scrollWidth" + document.body.scrollWidth);
+        try {
+            if (isNaN(nbCols) || (nbCols === 0)) {
+                flutter_log.postMessage("========= CH 2: nbCols isNaN");
+            } else {
+                for (i = 0; i < nbCols; i++) {
+                    flutter_log.postMessage("========= CH 2: page: " + i);
+                    // let divText = "<div id=\id=\"page_" + i + "\" class=\"page_overlay\"></div>";
+                    let pageOverlay = document.createElement('div');
+                    pageOverlay.id = "page_" + i;
+                    pageOverlay.className = "page_overlay";
+                    flutter_log.postMessage("========= CH 2: pageOverlay: " + pageOverlay);
+                    flutter_log.postMessage("========= CH 2: page: " + i + " - A");
+                    paginator.eq(0).append(pageOverlay);
+                    flutter_log.postMessage("========= CH 2: page: " + i + " - B");
+                    if (i === 0) {
+                        observerBeginning.observe(pageOverlay);
+                        flutter_log.postMessage("========= CH 2: page: " + i + " - C");
+                    } else if (i === nbCols - 1) {
+                        observerEnd.observe(pageOverlay);
+                        flutter_log.postMessage("========= CH 2: page: " + i + " - D");
+                    }
+                }
+            }
+        } catch (e) {
+            flutter_log.postMessage("========= *** ERROR CH 2: page: " + e);
+        }
+    }
+
+    $( window ).on( "load", function () {
+        setTimeout(initPagination, 10);
     });
+    // document.fonts.ready.then(function () {
+    //     setTimeout(initPagination, 10);
+    // })
 </script>
+
 
 </html>
