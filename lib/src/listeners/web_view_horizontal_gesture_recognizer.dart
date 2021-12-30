@@ -1,6 +1,6 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/gestures.dart';
-import 'package:pagination_tests/src/widgets/pagination_web_view.dart';
+import 'package:pagination_tests/src/widgets/paginating_web_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Inspired by https://stackoverflow.com/questions/57069716/scrolling-priority-when-combining-pageview-with-webview-in-flutter-1-7-8/57150906#57150906
@@ -11,7 +11,6 @@ class WebViewHorizontalGestureRecognizer
   final PaginatingWebView webView;
   WebViewController controller;
 
-  double _webViewScrollX = -double.maxFinite;
   double _webViewScrollWidth = double.maxFinite;
   double _webViewViewportWidth = double.maxFinite;
 
@@ -43,7 +42,6 @@ class WebViewHorizontalGestureRecognizer
   }
 
   set webViewScrollX(double value) {
-    _webViewScrollX = value;
     Fimber.d(
         ">>> _webViewCanScrollX[$chapNumber] --> $value, this: $hashCode, ${webView.hashCode}");
   }
