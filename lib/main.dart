@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const NB_CHAPTERS = 8;
+  static const NB_CHAPTERS = 6;
   final _webviewKeys =
       List<GlobalKey>.generate(NB_CHAPTERS, (_) => GlobalKey());
 
@@ -75,37 +75,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget createListview(ScrollPhysics scrollPhysics) {
-    return Stack(
-      children: [
-        WebView(
-          initialUrl: "https://www.reddit.com",
-          debuggingEnabled: true,
-        ),
-        PreloadPageView(
-            preloadPagesCount: 3,
-            controller: PreloadPageController(/*viewportFraction: 0.99*/),
-            children: new List<Widget>.generate(
-                NB_CHAPTERS,
-                (i) => PaginatingWebView(
-                      i,
-                      key: _webviewKeys[i],
-                    ))),
-      ],
-    );
-  }
-
-  ConstrainedBox createWebview(String initialUrl) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 920.0, maxHeight: 400.0),
-      child: WebView(
-        debuggingEnabled: true,
-        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-          Factory<VerticalDragGestureRecognizer>(
-            () => VerticalDragGestureRecognizer(),
-          ),
-        },
-        initialUrl: initialUrl,
-      ),
-    );
+    return PreloadPageView(
+        preloadPagesCount: 5,
+        // controller: PreloadPageController(viewportFraction: 0.9999),
+        controller: PreloadPageController(),
+        children: new List<Widget>.generate(
+            NB_CHAPTERS,
+            (i) => PaginatingWebView(
+                  i,
+                  key: _webviewKeys[i],
+                )));
   }
 }

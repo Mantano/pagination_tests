@@ -41,17 +41,28 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
       constraints: BoxConstraints(
           minWidth: contentWidth, maxWidth: contentWidth, maxHeight: 800.0),
       child: WebView(
-        initialUrl:
-            Uri.encodeFull("https://www.google.com?q=${widget.chapNumber}"),
+        // initialUrl:
+        //     Uri.encodeFull("https://www.google.com?q=${widget.chapNumber}"),
         debuggingEnabled: true,
-        javascriptMode: JavascriptMode.unrestricted,
+        // javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           Fimber.d(">>> Webview CREATED");
           _controller = webViewController;
+          _loadHtmlFromAssets();
         },
         onPageFinished: _onPageFinished,
       ),
     );
+  }
+
+  _loadHtmlFromAssets() async {
+    Fimber.d("============= Loading: " +
+        'assets/chap_${widget.chapNumber + 1}.html');
+    String fileText = await rootBundle
+        .loadString('assets/chap_${widget.chapNumber + 1}.html');
+    _controller.loadUrl(Uri.dataFromString(fileText,
+            mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+        .toString());
   }
 
   void _onPageFinished(String url) {
