@@ -9,12 +9,35 @@ import 'package:preload_page_view/preload_page_view.dart' as preload_pageview;
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'src/widgets/fling_page_scroll_physics.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   if (kReleaseMode) {
     Fimber.plantTree(FimberTree());
   } else {
     Fimber.plantTree(DebugBufferTree());
+  }
+
+  if (Platform.isAndroid) {
+    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+
+    var swAvailable = await AndroidWebViewFeature.isFeatureSupported(
+        AndroidWebViewFeature.SERVICE_WORKER_BASIC_USAGE);
+    var swInterceptAvailable = await AndroidWebViewFeature.isFeatureSupported(
+        AndroidWebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
+
+    if (swAvailable && swInterceptAvailable) {
+      AndroidServiceWorkerController serviceWorkerController =
+          AndroidServiceWorkerController.instance();
+
+      serviceWorkerController.serviceWorkerClient = AndroidServiceWorkerClient(
+        shouldInterceptRequest: (request) async {
+          print(request);
+          return null;
+        },
+      );
+    }
   }
 
   runApp(MyApp());
@@ -50,8 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // Enable hybrid composition (not required if webview_flutter >= 3.0.0
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
@@ -59,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: _chaptersListView(context),
+          child: _chaptersView(context),
         ),
       ),
     );
@@ -67,45 +88,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool flingMode = false;
 
-  Widget _chaptersListView(BuildContext context) {
+  Widget _chaptersView(BuildContext context) {
     final scrollPhysics = flingMode
         ? FlingPageScrollPhysics(PageController())
         : preload_pageview.PageScrollPhysics();
-    return createListview(scrollPhysics);
+    return createPageView(scrollPhysics);
   }
 
-  Widget createListview(ScrollPhysics scrollPhysics) {
-    return Stack(
-      children: [
-        WebView(
-          initialUrl: "https://www.reddit.com",
-          debuggingEnabled: true,
-        ),
-        PreloadPageView(
-            preloadPagesCount: 3,
-            controller: PreloadPageController(/*viewportFraction: 0.99*/),
-            children: new List<Widget>.generate(
-                NB_CHAPTERS,
-                (i) => PaginatingWebView(
-                      i,
-                      key: _webviewKeys[i],
-                    ))),
-      ],
-    );
-  }
-
-  ConstrainedBox createWebview(String initialUrl) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 920.0, maxHeight: 400.0),
-      child: WebView(
-        debuggingEnabled: true,
-        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-          Factory<VerticalDragGestureRecognizer>(
-            () => VerticalDragGestureRecognizer(),
-          ),
-        },
-        initialUrl: initialUrl,
-      ),
-    );
+  Widget createPageView(ScrollPhysics scrollPhysics) {
+    return PreloadPageView(
+        preloadPagesCount: 5,
+        controller: PreloadPageController(viewportFraction: 1.0),
+        children: new List<Widget>.generate(
+            NB_CHAPTERS,
+            (i) => PaginatingWebView(
+                  i + 1,
+                  key: _webviewKeys[i],
+                )));
   }
 }

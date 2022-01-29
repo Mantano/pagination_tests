@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:fimber/fimber.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:pagination_tests/src/epub/js/xpub_js_api.dart';
 import 'package:pagination_tests/src/listeners/web_view_horizontal_gesture_recognizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -25,36 +27,54 @@ class _PaginatingWebViewState extends State<PaginatingWebView>
   @override
   bool get wantKeepAlive => true;
 
-  final kDefaultNbPages = 3;
   double contentWidth = 920.0;
 
-  WebViewController _controller;
+  InAppWebViewController _controller;
   JsApi jsApi;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    var webViewHorizontalGestureRecognizer = WebViewHorizontalGestureRecognizer(
+      chapNumber: widget.chapNumber,
+      webView: widget,
+    );
     contentWidth = MediaQuery.of(context).size.width * 3;
     Fimber.d(
         "============= Device screen width: ${MediaQuery.of(context).size.width}");
     return ConstrainedBox(
       constraints: BoxConstraints(
           minWidth: contentWidth, maxWidth: contentWidth, maxHeight: 800.0),
-      child: WebView(
-        initialUrl:
-            Uri.encodeFull("https://www.google.com?q=${widget.chapNumber}"),
-        debuggingEnabled: true,
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
+      child: InAppWebView(
+        // initialUrl:
+        //     Uri.encodeFull("https://www.google.com?q=${widget.chapNumber}"),
+        onWebViewCreated: (controller) {
           Fimber.d(">>> Webview CREATED");
-          _controller = webViewController;
+          _controller = controller;
+          _loadHtmlFromAssets();
         },
-        onPageFinished: _onPageFinished,
+        onLoadStop: _onPageFinished,
       ),
     );
   }
 
-  void _onPageFinished(String url) {
+  _loadHtmlFromAssets() async {
+    Fimber.d(
+        "============= Loading: " + 'assets/chap_${widget.chapNumber}.html');
+    String fileText =
+        await rootBundle.loadString('assets/chap_${widget.chapNumber}.html');
+    _controller.loadUrl(
+        urlRequest: URLRequest(
+            url: Uri.dataFromString(fileText,
+                mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))));
+  }
+
+  void _onPageFinished(controller, uri) {
     Fimber.d("============== _onPageFinished[${widget.chapNumber}]");
     try {
       // jsApi?.initPagination();
